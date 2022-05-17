@@ -1,0 +1,165 @@
+.navbarmain{
+  color: orangered;
+  
+}
+.nav{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  max-height:5rem;
+  z-index: 5;
+  justify-content:space-between;
+}
+.nav:hover{
+  background:rgba(0,0,0,0.7);
+}
+.logo{
+  color: orangered;
+  padding:22px 20px 0 40px;
+  height:80px;
+  float:left;
+  font-size:24px;
+  font-weight:bold;
+  /* color:#fff; */
+  cursor: pointer;
+
+}
+.r{
+  color: orange;
+}
+.ul{
+ float:right ;
+ display:flex;
+ flex-direction: row;
+padding-right:40px;
+/* margin-top:20px; */
+ background: transparent;
+justify-content: space-between;
+}
+
+ .ul .li {
+   list-style: none;
+  line-height:40px;
+  color:rgb(252, 211, 27);
+  /* color:#fff; */
+  font-size:14px;
+  padding:2px 20px;
+
+  font-weight:bold;
+  text-transform:uppercase;
+}
+.li:hover{
+  
+   color: orange;
+  border-bottom: 2px solid orange;
+  border-radius:6px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out ;
+}
+
+  .menubar{
+    /* color:#fff; */
+    /* border:.1rem solid #fff; */
+    border-radius: .5rem;
+    font-size: 3rem;
+    padding:.5rem 1.2rem;
+    cursor: pointer;
+    margin-top: -3rem;
+    margin-right: .5rem;
+    display: none;
+    float: right;
+  }
+  .menuicons{
+    width: 35px;
+    height: 4px;
+    
+    /* background-color: white; */
+    background-color: rgb(252, 211, 27);
+    margin: 6px -35px ;
+    position: relative;
+    z-index: 52;
+  }
+  .active{
+    display: none;
+  }
+ 
+
+  
+  @media screen and (max-width:1000px){
+  
+    .menubar{
+      margin-top: .5rem;
+      display:unset;
+    }
+    .navbar{
+      z-index: 100;
+      position: absolute;
+      display: flex;
+      /* flex-direction: column; */
+      top:3.8rem;  right: 0;
+      margin: 0;
+      color: #fff;
+      background: #333;
+      border-top: .1rem solid rgba(255,255,255,.2);
+      padding:1rem 2rem;
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+      height: auto;
+      /* max-width: 40vw; */
+      z-index: 55;
+    }
+  
+    .active{
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+   .navbar ul{
+     display: flex;
+     flex-direction: column;
+     /* overflow-y: scroll; */
+     padding: 0;
+   }
+    .navbar ul li{
+      /* display: block; */
+      display: flex;
+      flex-direction: column;
+      border-radius: .5rem;
+      padding:.5rem;
+      margin:.5rem 0;  
+      width: 100%;  
+      background:#222;
+    }
+  
+    .close {
+      z-index: 60;
+      position: absolute;
+      right: 3rem;
+      top: 1.2rem;
+      width: 1rem;
+      height: 1rem;
+      opacity: 0.3;
+      cursor: pointer;
+    }
+    .close:hover {
+      opacity: 1;
+    }
+    .close:before, .close:after {
+      position: absolute;
+      left: 15px;
+      content: ' ';
+      height: 33px;
+      width: .4rem;
+      /* background-color: #fff; */
+      background-color: rgb(252, 211, 27);
+    }
+    .close:before {
+      transform: rotate(45deg);
+    
+      transition: 1s;
+    }
+    .close:after {
+      transform: rotate(-45deg);
+    
+    }
+   
+    }
+  

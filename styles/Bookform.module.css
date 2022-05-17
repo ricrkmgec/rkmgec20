@@ -1,0 +1,197 @@
+.formBody {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+.formBody:before {
+  content: "";
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../public/formBg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  background-size: cover;
+  -webkit-filter: blur(10px);
+  -moz-filter: blur(10px);
+  filter: blur(10px);
+}
+.contactForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 560px;
+  padding: 80px 40px;
+  background: rgba(0, 0, 0, 0.5);
+}
+.avatar {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  top: calc(-80px / 2);
+  left: 190px;
+}
+.contactform h2 {
+  margin: 0;
+  padding: 0 0 20px;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+}
+.contactform p {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  color: #fff;
+}
+.contactform input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.contactform input[type="Name"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+.contactform input[type="Rollno"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+.contactform input[type="email"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+.contactform input[type="contactno"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+
+/* input[type=radiobutton] {
+	width:5%;
+	border: none;
+	border-bottom: 1px solid #fff;
+	background: transparent;
+	outline: none;
+	height: 1px;
+	color: #fff;
+	font-size: 16px;
+	} */
+.contact-form input[type="books"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+.contactform input[type="submit"] {
+  height: 30px;
+  color: #fff;
+  font-size: 15px;
+  background: red;
+  cursor: pointer;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  margin-top: 1%;
+}
+.contactform a {
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+.form {
+  width: 100%;
+}
+
+.formItem {
+  display: block;
+  width: 100%;
+  margin: 10px auto;
+}
+
+.formItem label {
+  display: block;
+}
+
+.formItem input[type="text"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+}
+
+.formItem textarea {
+  display: block;
+  width: 100%;
+  padding: 10px;
+}
+
+.error {
+  color: red;
+}
+
+.message {
+  color: green;
+}
+
+/* available books css */
+
+.body {
+  text-align: center;
+  margin-top: -2rem;
+  padding-top: 3.5rem;
+  background-image: url("../public/formBg.jpg");
+  /* position:fixed; */
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  min-width: 100vw;
+  height: 90vh;
+  /* min-height: 80vh; */
+  /* overflow: hidden; */
+  overflow-y: scroll;
+}
+
+.availablebtn {
+  right: 0;
+  width: 15rem;
+}
+
+
+
+/* .atag{
+  display: inline-block;
+} */

@@ -1,4 +1,4 @@
-// import React from 'react'
+
 import React, { useState, useEffect } from "react";
 // import post from '../api/book'
 import { useRouter } from "next/router";
@@ -9,9 +9,9 @@ import useSWR from "swr";
 import styles from "../../styles/Bookform.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+const DOMAIN=process.env.DOMAIN;
 
-
-function scholarshipUpdate() {
+function scholarshipUpdate({loggedIn,data}) {
 
   const router = useRouter();
   const [scholarship_name, setScholarship_name] = useState("");
@@ -28,7 +28,7 @@ function scholarshipUpdate() {
       details,
       type,
     };
-    let response = await fetch("http://localhost:3000/api/scholarship/sc", {
+    let response = await fetch(`${DOMAIN}/api/scholarship/sc`, {
       method: "POST",
       headers: {
         Accept: contentType,
@@ -55,17 +55,6 @@ function scholarshipUpdate() {
       }
     };
     
-    const { data } = useSWR("../api/me", async function (args) {
-        const res = await fetch(args);
-        return res.json();
-      });
-      // const data =  fetch("../api/me");
-  if (!data) return <h1>Loading...</h1>;
-  let loggedIn = false;
-  if (data.email) {
-    loggedIn = true;
-  }
-
 
 
   return (

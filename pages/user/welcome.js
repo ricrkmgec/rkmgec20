@@ -26,7 +26,7 @@ function Home() {
   return (
     <div>
       <Head>
-        <title>Welcome to landing page</title>
+        <title>Welcome {data.name.split(" ")[0]}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className="body">

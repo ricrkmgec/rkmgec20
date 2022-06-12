@@ -6,16 +6,16 @@ import { SiGooglescholar } from 'react-icons/si';
 import { BsFillCalendar2EventFill } from 'react-icons/bs';
 import styles from '../../styles/Admin.module.css'
 function sample() {
-let list = document.getElementById('li')
-for(let i=0;i<list.length;i++){
-  list[i].onClick=()=>{
-    let j=0;
-    while(j<GiLizardTongue.length){
-      list[j++].className={};
-    }
-  }
-  list[i].className='styles.active'
-}
+// let list = document.getElementById('li')
+// for(let i=0;i<list.length;i++){
+//   list[i].onClick=()=>{
+//     let j=0;
+//     while(j<GiLizardTongue.length){
+//       list[j++].className={};
+//     }
+//   }
+//   list[i].className='styles.active'
+// }
 
   return (
     <div className='body'>

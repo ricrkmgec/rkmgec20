@@ -1,24 +1,12 @@
 import Head from "next/head";
-import fetch from "isomorphic-unfetch";
-import useSWR from "swr";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import cookie from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Home() {
+function Home({loggedIn,data}) {
   const router = useRouter();
-  const { data } = useSWR("../api/me", async function (args) {
-    const res = await fetch(args);
-    return res.json();
-  });
-  if (!data) return <h1>Loading...</h1>;
-  let loggedIn = false;
-  if (data.email) {
-    loggedIn = true;
-  }
-  
   function onload(){
     window.location.reload(false);
   }
@@ -26,7 +14,7 @@ function Home() {
   return (
     <div>
       <Head>
-        <title>Welcome {data.name.split(" ")[0]}</title>
+        <title>Welcome {data.name}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className="body">

@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from 'next/router'
 // import d from '../../public/bookbg'
 import { AiFillDelete } from 'react-icons/ai';
 import { TiTick } from 'react-icons/ti';
+import { RiVideoFill } from "react-icons/ri";
+import { FaBlog, FaFilePdf } from "react-icons/fa";
 import styles from "../../styles/Bookform.module.css";
 import dbConnect from "../../lib/mongodb";
 import Ebook from "../../models/Ebooks&video";
+import User from "../../models/User";
 import axios from "axios";
 import api from "../../lib/api";
-import useSWR from "swr";
 import Link from 'next/link'
+import _ from "lodash"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FcLike } from 'react-icons/fc';
@@ -27,19 +31,19 @@ function Ebooks({ ebook, loggedIn, data }) {
       setUser(res.data);
     };
   });
-
+  const router = useRouter();
   const handleUpdateClient = async (_id) => {
-// console.log(_id)
+    // console.log(_id)
     try {
-      await api.put(`/books&video/ebook/${_id}`).then(response=>{
-        if(response.data.success){
+      await api.put(`/books&video/ebook/${_id}`).then(response => {
+        if (response.data.success) {
 
           toast.success(response.data.message)
           var element = document.getElementById("tr");
           element.remove();
         }
-        else{
-toast.error(response.data.message)
+        else {
+          toast.error(response.data.message)
         }
       })
       // setIsShow(true);
@@ -55,17 +59,17 @@ toast.error(response.data.message)
   const handleDeleteClient = async (_id) => {
 
     try {
-      await api.delete(`/books&video/ebook/${_id}`).then(response=>{
-       if(response.data.success) {
+      await api.delete(`/books&video/ebook/${_id}`).then(response => {
+        if (response.data.success) {
 
-         toast.warn(response.data.message)
-         var element = document.getElementById("tr");
-         element.remove();
+          toast.warn(response.data.message)
+          var element = document.getElementById("tr");
+          element.remove();
         }
-        else{
-          
+        else {
+
           toast.error(response.data.message)
-       }
+        }
       })
       // toast({
 
@@ -92,7 +96,7 @@ toast.error(response.data.message)
   //   if (data.email) {
   //     loggedIn = true;
   //   }
-  function onload(){
+  function onload() {
     window.location.reload(false);
   }
   function byId(b, a) {
@@ -126,8 +130,17 @@ toast.error(response.data.message)
       //   return <h1>Search term not found</h1>
       // }
     });
+  const cat = (category) => {
+    if (category == "video") {
+      return <RiVideoFill style={{ color: "orangered" }} title={"Video"} />;
+    } else if (category == "ebook") {
+      return <FaFilePdf style={{ color: "red" }} title={"Ebook"} />;
+    } else {
+      return <FaBlog style={{ color: "orange" }} title={"Blog"} />;
+    }
+  };
 
-    var program = Object.keys(filt).map((k) => { return filt[k].type == "programming" }).indexOf(true) !== -1
+  var program = Object.keys(filt).map((k) => { return filt[k].type == "programming" }).indexOf(true) !== -1
   var core = Object.keys(filt).map((k) => { return filt[k].type == "core" }).indexOf(true) !== -1
   var ece = Object.keys(filt).map((k) => { return filt[k].type == "ece" }).indexOf(true) !== -1
   var cse = Object.keys(filt).map((k) => { return filt[k].type == "cse" }).indexOf(true) !== -1
@@ -146,7 +159,7 @@ toast.error(response.data.message)
     <div>
 
       <ToastContainer />
-      {loggedIn && isadmin &&  (
+      {loggedIn && isadmin && (
         <>
           <div className={styles.body} style={{ paddingTop: `20vh` }}>
 
@@ -183,66 +196,56 @@ toast.error(response.data.message)
                 <button onClick={() => setSearch("others")} className="button" id={search == "others" ? "active" : ""}>others</button>
               </div>
               {/* <button onClick={() => setSearch("Programming")} className="btn">Programming</button> */}
-              {!(all||program||core||ece||cse||ee||me||ce||others) ? (<div className="" style={{ color: 'red', fontSize: '3rem', fontWeight: 'bold' }}>Nothing is found</div>) : ""}
+              {!(all || program || core || ece || cse || ee || me || ce || others) ? (<div className="" style={{ color: 'red', fontSize: '3rem', fontWeight: 'bold' }}>Nothing is found</div>) : ""}
               {/* {!all ? (<div className="" style={{ color: 'red', fontSize: '3rem', fontWeight: 'bold' }}>Nothing is found</div>) : ""} */}
               <h2 className={!program ? "none" : ""} style={{ textDecoration: 'underline wavy' }}>Programming</h2>
               <table className="table">
                 <thead className={!program ? "none" : ""}>
-                  {/* <caption>Available Books</caption> */}
                   <tr>
                     <>
 
                       <th>Title</th>
                       <th>Resouce Name</th>
-                      {/* <th></th> */}
+                      <th>Name</th>
+                      <th>Session</th>
                     </>
-                    {/* <th>likes</th> */}
-                    {/* <th></th> */}
                   </tr>
                 </thead>
                 {filt.map((book) => {
                   return (
                     book.isShow === false && book.type == 'programming' && (
-
                       <>
-                        {/* <div>{Object.keys(ebook).length}</div> */}
                         <tbody>
-                          <tr key={book._id}>
-                            <Link href={book.link} passHref>
-                              <>
-                                {/* <a href={book.link}  target="_blank" rel="noreferrer"> */}
-                                <td data-lebel="Title">
-                                  <a href={book.link} target="_blank" rel="noopener noreferrer">
-
-                                    {book.title}
-                                  </a>
-                                </td>
-                                <td data-lebel="Resouce"> {book.resource}</td>
-
-                                {/* <td data-lebel="session">{book.session}</td> */}
-                                {/* </a> */}
-                              </>
-                            </Link>
-                            {/* <td>
-
-                              </td> */}
-                            {/* <div>{book.likes.indexOf(data.userId) !== -1 ? "ok" : "no"}</div> */}
-                         
+                          <tr key={book.likes.length || book._id} id='tr'>
+                            <>
+                              <td data-lebel="Title">
+                                <a
+                                  href={book.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {cat(book.category)} {book.title}
+                                </a>
+                              </td>
+                              <td data-lebel="Resouce">
+                                {" "}
+                                <a
+                                  href={book.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {book.resource}
+                                </a>{" "}
+                              </td>
+                              <td data-lebel="Names">{book.name}</td>
+                              <td data-lebel="Session"><>{book.session}</></td>
+                            </>
+                            <td className='updateAndDelete' >
+                              <div className="btngreen" onClick={() => handleUpdateClient(book._id)}><TiTick /></div>
+                              <div className="btnred" onClick={() => handleDeleteClient(book._id)}><AiFillDelete /></div>
+                            </td>
                           </tr>
-
                         </tbody>
-                        {/* book.likes.length */}
-                        {/* <div>
-                        <h2>Book Name : </h2>
-                        <h4>Name : </h4>
-                        <p>Contact No : </p>
-                        <hr />
-                      </div> */}
-                        {/* while ({5>9}) {
-                        
-                            setUserid(book.userId)
-                      } */}
-                        {/* {console.log(all)} */}
                       </>
                     )
                   );
@@ -251,13 +254,11 @@ toast.error(response.data.message)
               <h2 className={!core ? "none" : ""} style={{ textDecoration: 'underline wavy' }}>Core</h2>
               <table className="table">
                 <thead className={!core ? "none" : ""}>
-                  {/* <caption>Available Books</caption> */}
                   <tr>
                     <th>Title</th>
                     <th>Resouce Name</th>
-                    <th></th>
-                    <th>likes</th>
-                    {/* <th></th> */}
+                    <th>Names</th>
+                    <th>Session</th>
                   </tr>
                 </thead>
 
@@ -267,53 +268,56 @@ toast.error(response.data.message)
                       book.isShow === false && book.type == 'core' && (
                         <>
                           <tbody>
-                            {/* <Link  href={book.link}> */}
-                            <tr key={book.likes.length || book._id}>
+                            <tr key={book.likes.length || book._id} id='tr'>
                               <>
-                                {/* <a href={book.link}  target="_blank" rel="noreferrer"> */}
-                                <td data-lebel="Title">{book.title}</td>
-                                <td data-lebel="Resouce"> {book.resource}</td>
-                                <td data-lebel="likes">{book.likes.length}</td>
-                                {/* <td data-lebel="session">{book.session}</td> */}
-                                {/* </a> */}
-                                <td>
-
-                                  <div data-lebel="lokes" onClick={() => handleLikeUpdate(book._id)}><FcLike /></div>
+                                <td data-lebel="Title">
+                                  <a
+                                    href={book.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    {cat(book.category)} {book.title}
+                                  </a>
                                 </td>
-                              </>
-                            </tr>
-                            {/* </Link> */}
-                          </tbody>
+                                <td data-lebel="Resouce">
+                                  {" "}
+                                  <a
+                                    href={book.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    {book.resource}
+                                  </a>{" "}
+                                </td>
+                                <td data-lebel="Names">{book.name}</td>
+                                {/* <td data-lebel="Session" ><button   onClick={() => router.push('mailto:jhs1941jhs@gmail.com')}><a>{book.email}</a></button></td> */}
+                                <td data-lebel="Session"><>{book.session}</></td>
 
-                          {/* <div>
-                        <h2>Book Name : </h2>
-                        <h4>Name : </h4>
-                        <p>Contact No : </p>
-                        <hr />
-                      </div> */}
-                          {/* while ({5>9}) {
-                        
-                      setUserid(book.userId)
-                      } */}
+
+                              </>
+                              <td className='updateAndDelete' >
+                                <div className="btngreen" onClick={() => handleUpdateClient(book._id)}><TiTick /></div>
+                                <div className="btnred" onClick={() => handleDeleteClient(book._id)}><AiFillDelete /></div>
+                              </td>
+                            </tr>
+                          </tbody>
                         </>
                       )
                     );
                   })}
               </table>
               <h2 className={!ece ? "none" : ""} style={{ textDecoration: 'underline wavy' }}>ECE</h2>
-     
+
               <table className="table">
                 <thead className={!ece ? "none" : ""}>
-                  {/* <caption>Available Books</caption> */}
                   <tr>
                     <>
 
                       <th>Title</th>
                       <th>Resouce Name</th>
-                      {/* <th></th> */}
+                      <th>Name</th>
+                      <th>Session</th>
                     </>
-                    {/* <th>likes</th> */}
-                    {/* <th></th> */}
                   </tr>
                 </thead>
                 {filt.map((book) => {
@@ -321,71 +325,53 @@ toast.error(response.data.message)
                     book.isShow === false && book.type == 'ece' && (
 
                       <>
-                        {/* <div>{Object.keys(ebook).length}</div> */}
                         <tbody>
-                          <tr id="tr" key={book._id}>
-                            <Link href={book.link} passHref>
-                              <>
-                                {/* <a href={book.link}  target="_blank" rel="noreferrer"> */}
-                                <td data-lebel="Title">
-                                  <a href={book.link} target="_blank" rel="noopener noreferrer">
-
-                                    {book.title}
-                                  </a>
-                                </td>
-                                <td data-lebel="Resouce"> {book.resource}</td>
-
-                                {/* <td data-lebel="session">{book.session}</td> */}
-                                {/* </a> */}
-                              </>
-                            </Link>
-                            {/* <td>
-
-                              </td> */}
-                            {/* <div>{book.likes.indexOf(data.userId) !== -1 ? "ok" : "no"}</div> */}
+                          <tr key={book.likes.length || book._id} id='tr'>
+                            <>
+                              <td data-lebel="Title">
+                                <a
+                                  href={book.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {cat(book.category)} {book.title}
+                                </a>
+                              </td>
+                              <td data-lebel="Resouce">
+                                {" "}
+                                <a
+                                  href={book.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {book.resource}
+                                </a>{" "}
+                              </td>
+                              <td data-lebel="Names">{book.name}</td>
+                              <td data-lebel="Session"><>{book.session}</></td>
+                            </>
                             <td className='updateAndDelete' >
                               <div className="btngreen" onClick={() => handleUpdateClient(book._id)}><TiTick /></div>
-
-                
-                             
-                              {/* </td>
-                            <td> */}
                               <div className="btnred" onClick={() => handleDeleteClient(book._id)}><AiFillDelete /></div>
                             </td>
                           </tr>
-
                         </tbody>
-                        {/* book.likes.length */}
-                        {/* <div>
-                        <h2>Book Name : </h2>
-                        <h4>Name : </h4>
-                        <p>Contact No : </p>
-                        <hr />
-                      </div> */}
-                        {/* while ({5>9}) {
-                        
-                            setUserid(book.userId)
-                      } */}
-                        {/* {console.log(all)} */}
                       </>
                     )
                   );
                 })}
               </table>
               <h2 className={!cse ? "none" : ""} style={{ textDecoration: 'underline wavy' }}>CSE</h2>
-        
+
               <table className="table">
                 <thead className={!cse ? "none" : ""}>
-                  {/* <caption>Available Books</caption> */}
                   <tr>
                     <>
-
                       <th>Title</th>
                       <th>Resouce Name</th>
-                      {/* <th></th> */}
+                      <th>Name</th>
+                      <th>Session</th>
                     </>
-                    {/* <th>likes</th> */}
-                    {/* <th></th> */}
                   </tr>
                 </thead>
                 {filt.map((book) => {
@@ -393,63 +379,53 @@ toast.error(response.data.message)
                     book.isShow === false && book.type == 'cse' && (
 
                       <>
-                        {/* <div>{Object.keys(ebook).length}</div> */}
                         <tbody>
-                          <tr key={book._id}>
-                            <Link href={book.link} passHref>
-                              <>
-                                {/* <a href={book.link}  target="_blank" rel="noreferrer"> */}
-                                <td data-lebel="Title">
-                                  <a href={book.link} target="_blank" rel="noopener noreferrer">
-
-                                    {book.title}
-                                  </a>
-                                </td>
-                                <td data-lebel="Resouce"> {book.resource}</td>
-
-                                {/* <td data-lebel="session">{book.session}</td> */}
-                                {/* </a> */}
-                              </>
-                            </Link>
-                            {/* <td>
-
-                              </td> */}
-                            {/* <div>{book.likes.indexOf(data.userId) !== -1 ? "ok" : "no"}</div> */}
-                         
+                          <tr key={book.likes.length || book._id} id='tr'>
+                            <>
+                              <td data-lebel="Title">
+                                <a
+                                  href={book.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {cat(book.category)} {book.title}
+                                </a>
+                              </td>
+                              <td data-lebel="Resouce">
+                                {" "}
+                                <a
+                                  href={book.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {book.resource}
+                                </a>{" "}
+                              </td>
+                              <td data-lebel="Names">{book.name}</td>
+                              <td data-lebel="Session"><>{book.session}</></td>
+                            </>
+                            <td className='updateAndDelete' >
+                              <div className="btngreen" onClick={() => handleUpdateClient(book._id)}><TiTick /></div>
+                              <div className="btnred" onClick={() => handleDeleteClient(book._id)}><AiFillDelete /></div>
+                            </td>
                           </tr>
-
                         </tbody>
-                        {/* book.likes.length */}
-                        {/* <div>
-                        <h2>Book Name : </h2>
-                        <h4>Name : </h4>
-                        <p>Contact No : </p>
-                        <hr />
-                      </div> */}
-                        {/* while ({5>9}) {
-                        
-                            setUserid(book.userId)
-                      } */}
-                        {/* {console.log(all)} */}
                       </>
                     )
                   );
                 })}
               </table>
               <h2 className={!ee ? "none" : ""} style={{ textDecoration: 'underline wavy' }}>EE</h2>
-             
+
               <table className="table">
                 <thead className={!ee ? "none" : ""}>
-                  {/* <caption>Available Books</caption> */}
                   <tr>
                     <>
-
                       <th>Title</th>
                       <th>Resouce Name</th>
-                      {/* <th></th> */}
+                      <th>Name</th>
+                      <th>Session</th>
                     </>
-                    {/* <th>likes</th> */}
-                    {/* <th></th> */}
                   </tr>
                 </thead>
                 {filt.map((book) => {
@@ -457,63 +433,53 @@ toast.error(response.data.message)
                     book.isShow === false && book.type == 'ee' && (
 
                       <>
-                        {/* <div>{Object.keys(ebook).length}</div> */}
                         <tbody>
-                          <tr key={book._id}>
-                            <Link href={book.link} passHref>
-                              <>
-                                {/* <a href={book.link}  target="_blank" rel="noreferrer"> */}
-                                <td data-lebel="Title">
-                                  <a href={book.link} target="_blank" rel="noopener noreferrer">
-
-                                    {book.title}
-                                  </a>
-                                </td>
-                                <td data-lebel="Resouce"> {book.resource}</td>
-
-                                {/* <td data-lebel="session">{book.session}</td> */}
-                                {/* </a> */}
-                              </>
-                            </Link>
-                            {/* <td>
-
-                              </td> */}
-                            {/* <div>{book.likes.indexOf(data.userId) !== -1 ? "ok" : "no"}</div> */}
-                         
+                          <tr key={book.likes.length || book._id} id='tr'>
+                            <>
+                              <td data-lebel="Title">
+                                <a
+                                  href={book.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {cat(book.category)} {book.title}
+                                </a>
+                              </td>
+                              <td data-lebel="Resouce">
+                                {" "}
+                                <a
+                                  href={book.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {book.resource}
+                                </a>{" "}
+                              </td>
+                              <td data-lebel="Names">{book.name}</td>
+                              <td data-lebel="Session"><>{book.session}</></td>
+                            </>
+                            <td className='updateAndDelete' >
+                              <div className="btngreen" onClick={() => handleUpdateClient(book._id)}><TiTick /></div>
+                              <div className="btnred" onClick={() => handleDeleteClient(book._id)}><AiFillDelete /></div>
+                            </td>
                           </tr>
-
                         </tbody>
-                        {/* book.likes.length */}
-                        {/* <div>
-                        <h2>Book Name : </h2>
-                        <h4>Name : </h4>
-                        <p>Contact No : </p>
-                        <hr />
-                      </div> */}
-                        {/* while ({5>9}) {
-                        
-                            setUserid(book.userId)
-                      } */}
-                        {/* {console.log(all)} */}
                       </>
                     )
                   );
                 })}
               </table>
               <h2 className={!me ? "none" : ""} style={{ textDecoration: 'underline wavy' }}>ME</h2>
-          
+
               <table className="table">
                 <thead className={!me ? "none" : ""}>
-                  {/* <caption>Available Books</caption> */}
                   <tr>
                     <>
-
                       <th>Title</th>
                       <th>Resouce Name</th>
-                      {/* <th></th> */}
+                      <th>Name</th>
+                      <th>Session</th>
                     </>
-                    {/* <th>likes</th> */}
-                    {/* <th></th> */}
                   </tr>
                 </thead>
                 {filt.map((book) => {
@@ -521,63 +487,53 @@ toast.error(response.data.message)
                     book.isShow === false && book.type == 'me' && (
 
                       <>
-                        {/* <div>{Object.keys(ebook).length}</div> */}
                         <tbody>
-                          <tr key={book._id}>
-                            <Link href={book.link} passHref>
-                              <>
-                                {/* <a href={book.link}  target="_blank" rel="noreferrer"> */}
-                                <td data-lebel="Title">
-                                  <a href={book.link} target="_blank" rel="noopener noreferrer">
-
-                                    {book.title}
-                                  </a>
-                                </td>
-                                <td data-lebel="Resouce"> {book.resource}</td>
-
-                                {/* <td data-lebel="session">{book.session}</td> */}
-                                {/* </a> */}
-                              </>
-                            </Link>
-                            {/* <td>
-
-                              </td> */}
-                            {/* <div>{book.likes.indexOf(data.userId) !== -1 ? "ok" : "no"}</div> */}
-                         
+                          <tr key={book.likes.length || book._id} id='tr'>
+                            <>
+                              <td data-lebel="Title">
+                                <a
+                                  href={book.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {cat(book.category)} {book.title}
+                                </a>
+                              </td>
+                              <td data-lebel="Resouce">
+                                {" "}
+                                <a
+                                  href={book.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {book.resource}
+                                </a>{" "}
+                              </td>
+                              <td data-lebel="Names">{book.name}</td>
+                              <td data-lebel="Session"><>{book.session}</></td>
+                            </>
+                            <td className='updateAndDelete' >
+                              <div className="btngreen" onClick={() => handleUpdateClient(book._id)}><TiTick /></div>
+                              <div className="btnred" onClick={() => handleDeleteClient(book._id)}><AiFillDelete /></div>
+                            </td>
                           </tr>
-
                         </tbody>
-                        {/* book.likes.length */}
-                        {/* <div>
-                        <h2>Book Name : </h2>
-                        <h4>Name : </h4>
-                        <p>Contact No : </p>
-                        <hr />
-                      </div> */}
-                        {/* while ({5>9}) {
-                        
-                            setUserid(book.userId)
-                      } */}
-                        {/* {console.log(all)} */}
                       </>
                     )
                   );
                 })}
               </table>
               <h2 className={!ce ? "none" : ""} style={{ textDecoration: 'underline wavy' }}>CE</h2>
-             
+
               <table className="table">
                 <thead className={!ce ? "none" : ""}>
-                  {/* <caption>Available Books</caption> */}
                   <tr>
                     <>
-
                       <th>Title</th>
                       <th>Resouce Name</th>
-                      {/* <th></th> */}
+                      <th>Name</th>
+                      <th>Session</th>
                     </>
-                    {/* <th>likes</th> */}
-                    {/* <th></th> */}
                   </tr>
                 </thead>
                 {filt.map((book) => {
@@ -585,44 +541,37 @@ toast.error(response.data.message)
                     book.isShow === false && book.type == 'cve' && (
 
                       <>
-                        {/* <div>{Object.keys(ebook).length}</div> */}
                         <tbody>
-                          <tr key={book._id}>
-                            <Link href={book.link} passHref>
-                              <>
-                                {/* <a href={book.link}  target="_blank" rel="noreferrer"> */}
-                                <td data-lebel="Title">
-                                  <a href={book.link} target="_blank" rel="noopener noreferrer">
-
-                                    {book.title}
-                                  </a>
-                                </td>
-                                <td data-lebel="Resouce"> {book.resource}</td>
-
-                                {/* <td data-lebel="session">{book.session}</td> */}
-                                {/* </a> */}
-                              </>
-                            </Link>
-                            {/* <td>
-
-                              </td> */}
-                            {/* <div>{book.likes.indexOf(data.userId) !== -1 ? "ok" : "no"}</div> */}
-                         
+                          <tr key={book.likes.length || book._id} id='tr'>
+                            <>
+                              <td data-lebel="Title">
+                                <a
+                                  href={book.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {cat(book.category)} {book.title}
+                                </a>
+                              </td>
+                              <td data-lebel="Resouce">
+                                {" "}
+                                <a
+                                  href={book.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {book.resource}
+                                </a>{" "}
+                              </td>
+                              <td data-lebel="Names">{book.name}</td>
+                              <td data-lebel="Session"><>{book.session}</></td>
+                            </>
+                            <td className='updateAndDelete' >
+                              <div className="btngreen" onClick={() => handleUpdateClient(book._id)}><TiTick /></div>
+                              <div className="btnred" onClick={() => handleDeleteClient(book._id)}><AiFillDelete /></div>
+                            </td>
                           </tr>
-
                         </tbody>
-                        {/* book.likes.length */}
-                        {/* <div>
-                        <h2>Book Name : </h2>
-                        <h4>Name : </h4>
-                        <p>Contact No : </p>
-                        <hr />
-                      </div> */}
-                        {/* while ({5>9}) {
-                        
-                            setUserid(book.userId)
-                      } */}
-                        {/* {console.log(all)} */}
                       </>
                     )
                   );
@@ -632,16 +581,13 @@ toast.error(response.data.message)
 
               <table className="table">
                 <thead className={!others ? "none" : ""}>
-                  {/* <caption>Available Books</caption> */}
                   <tr>
                     <>
-
                       <th>Title</th>
                       <th>Resouce Name</th>
-                      {/* <th></th> */}
+                      <th>Name</th>
+                      <th>Session</th>
                     </>
-                    {/* <th>likes</th> */}
-                    {/* <th></th> */}
                   </tr>
                 </thead>
                 {filt.map((book) => {
@@ -649,54 +595,37 @@ toast.error(response.data.message)
                     book.isShow === false && book.type == 'others' && (
 
                       <>
-                        {/* <div>{Object.keys(ebook).length}</div> */}
                         <tbody>
-                          <tr key={book._id}>
-                            <Link href={book.link} passHref>
-                              <>
-                                {/* <a href={book.link}  target="_blank" rel="noreferrer"> */}
-                                <td data-lebel="Title">
-                                  <a href={book.link} target="_blank" rel="noopener noreferrer">
-
-                                    {book.title}
-                                  </a>
-                                </td>
-                                <td data-lebel="Resouce"> {book.resource}</td>
-
-                                {/* <td data-lebel="session">{book.session}</td> */}
-                                {/* </a> */}
-                              </>
-                            </Link>
-                            {/* <td>
-
-                              </td> */}
-                            {/* <div>{book.likes.indexOf(data.userId) !== -1 ? "ok" : "no"}</div> */}
-                         
-                          <td className='updateAndDelete' >
+                          <tr key={book.likes.length || book._id} id='tr'>
+                            <>
+                              <td data-lebel="Title">
+                                <a
+                                  href={book.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {cat(book.category)} {book.title}
+                                </a>
+                              </td>
+                              <td data-lebel="Resouce">
+                                {" "}
+                                <a
+                                  href={book.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {book.resource}
+                                </a>{" "}
+                              </td>
+                              <td data-lebel="Names">{book.name}</td>
+                              <td data-lebel="Session"><>{book.session}</></td>
+                            </>
+                            <td className='updateAndDelete' >
                               <div className="btngreen" onClick={() => handleUpdateClient(book._id)}><TiTick /></div>
-
-                
-                             
-                              {/* </td>
-                            <td> */}
                               <div className="btnred" onClick={() => handleDeleteClient(book._id)}><AiFillDelete /></div>
                             </td>
                           </tr>
-
-
                         </tbody>
-                        {/* book.likes.length */}
-                        {/* <div>
-                        <h2>Book Name : </h2>
-                        <h4>Name : </h4>
-                        <p>Contact No : </p>
-                        <hr />
-                      </div> */}
-                        {/* while ({5>9}) {
-                        
-                            setUserid(book.userId)
-                      } */}
-                        {/* {console.log(all)} */}
                       </>
                     )
                   );
@@ -708,26 +637,24 @@ toast.error(response.data.message)
 
         </>
       )}
-        <div className="body" style={{ paddingTop: `22vh`, textAlign: `center` }}>
+      <div className="body" style={{ paddingTop: `22vh`, textAlign: `center` }}>
 
+        {!loggedIn && (
+          <>
+            <h1>Sorry You are not loggedin !!!</h1>
+          </>
+        )}
 
-
-{!loggedIn && (
-  <>
-    <h1>Sorry You are not loggedin !!!</h1>
-  </>
-)}
-
-{loggedIn && (
-  <>
-    {!isadmin && (
-      <>
-        <h1>Sorry You are not an Admin !!!</h1>
-      </>
-    )}
-  </>
-)}
-</div>
+        {loggedIn && (
+          <>
+            {!isadmin && (
+              <>
+                <h1>Sorry You are not an Admin !!!</h1>
+              </>
+            )}
+          </>
+        )}
+      </div>
       <style jsx>{`
       .none{
         display:none;
@@ -871,15 +798,20 @@ content: '';
 }
 export default Ebooks;
 
-export async function getServerSideProps(params) {
+export async function getServerSideProps() {
   const { db } = await dbConnect();
-  const ebook = await Ebook.find({}).lean();
-  // const user = await User.findById(params.userId).lean();
-
+  let bk = await Ebook.find({})
+  let arr = []
+  for (var i = 0; i < bk.length; i++) {
+    let id = bk[i].userId
+    let user = await User.findOne({ _id: id });
+    let merge = _.merge(user, bk[i], bk[i].userId);
+    arr.push(merge)
+  }
+  console.log(arr)
   return {
     props: {
-      ebook: JSON.parse(JSON.stringify(ebook)),
-      // user: JSON.parse(JSON.stringify(user)),
+      ebook: JSON.parse(JSON.stringify(arr)),
     },
   };
 }

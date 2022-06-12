@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import styles from "../../styles/Bookform.module.css";
 import dbConnect from "../../lib/mongodb";
 import Books from "../../models/Books";
-// import User from "../../models/User";
 import User from "../../models/User";
 import axios from "axios";
 import api from "../../lib/api";
@@ -135,7 +134,7 @@ function Availablebooks({ books, loggedIn }) {
             <div>
 
               <h1>Sorry, Your are not Logged in please login first</h1>
-              <Link href="http://localhost:3000/user/login" passHref>
+              <Link href={`DOMAIN/user/login`} passHref>
                 <button className="btn" >
                   login
                 </button>
@@ -190,21 +189,22 @@ function Availablebooks({ books, loggedIn }) {
 export default Availablebooks;
 
 export async function getServerSideProps(params) {
-  const { db } = await dbConnect();
-  let bk = await Books.find({})
-  let arr = []
-  for (var i = 0; i < bk.length; i++) {
-    let id = bk[i].userId
-    let user = await User.findOne({ _id: id });
-    let merge = _.merge(bk[i], user, bk[i].userId);
-    arr.push(merge)
-  }
-  // const books = await Books.find({}).lean();
+  // const { db } = await dbConnect();
+  // let bk = await Book.find({})
+  // let arr = []
+  // for (var i = 0; i < bk.length; i++) {
+  //   let id = bk[i].userId
+  //   let user = await User.findOne({ _id: id });
+  //   let merge = _.merge(bk[i], user, bk[i].userId);
+  //   arr.push(merge)
+  // }
+  const books = await Books.findOne({author:'abc'}).lean();
+  console.log(books)
   // const user = await User.findById(params.userId).lean();
   // console.log(user)
   return {
     props: {
-      books: JSON.parse(JSON.stringify(arr)),
+      books: JSON.parse(JSON.stringify(books)),
       // user: JSON.parse(JSON.stringify(user)),
     },
   };

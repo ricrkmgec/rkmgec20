@@ -40,6 +40,6 @@ const BookSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
 BookSchema.index({ createdAt: 1 }, { expireAfterSeconds: 2628000 });
+
 export default mongoose.models.Book || mongoose.model("Book", BookSchema);

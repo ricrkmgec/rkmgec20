@@ -100,7 +100,7 @@ function Navbar({data}) {
             <Link href="/"><a><li className={styles.li}>Home</li></a></Link>
             <Link href="/"><a><li className={styles.li}>about</li></a></Link>
             <Link href="/"><a><li className={styles.li}> events</li></a></Link>
-            <Link href="/"><a><li className={styles.li}> Query</li></a></Link>
+            <Link href="http://localhost:3000/feedback"><a><li className={styles.li}>Feedback</li></a></Link>
             <Link href="/"><a><li className={styles.li}>Contacts</li></a></Link>
             {!loggedIn && (
               <Link href="http://localhost:3000/user/login"><a><li className={styles.li}>

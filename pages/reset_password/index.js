@@ -12,18 +12,7 @@ const Reset = (props) => {
   const router = useRouter();
   const [reseterror, setReseterror] = useState(false)
   const [email, setEmail] = useState("");
-
-
-//   const { data } = useSWR("../api/me", async function (args) {
-//     const res = await fetch(args);
-//     return res.json();
-//   });
-//   if (!data) return <h1>Loading...</h1>;
-//   let loggedIn = false;
-//   if (data.email) {
-//     loggedIn = true;
-//   }
-
+  
   async function handleSubmit(e) {
     e.preventDefault();
     //call api

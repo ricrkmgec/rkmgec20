@@ -16,6 +16,9 @@ export default async function handler(req, res) {
                     category,
                     feedback,
                 });
+
+
+                
                 const savedFeedback = await newFeedback.save();
                 return res.status(200).json({
                     message: 'Feedback is accespted',

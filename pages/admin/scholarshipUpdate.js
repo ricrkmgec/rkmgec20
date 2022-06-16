@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 const DOMAIN = process.env.DOMAIN;
 import api from "../../lib/api"
 
-function scholarshipUpdate({ loggedIn, data }) {
+function ScholarshipUpdate({ loggedIn, data }) {
   const router = useRouter();
   const [scholarship_name, setScholarship_name] = useState("");
   const [details, setDetails] = useState("");
@@ -154,4 +154,4 @@ if(data.admin==true){
   );
 }
 
-export default scholarshipUpdate;
+export default ScholarshipUpdate;

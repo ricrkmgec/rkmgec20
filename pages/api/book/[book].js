@@ -17,7 +17,6 @@ import dbConnect from "../../../lib/mongodb";
         await res.status(200).json({ success: true ,message:"Book request is Approved"});
         // console.log('okkkkkkkkkkkkkk')
       } catch (error) {
-        console.log(error);
         res.status(500).json({ success: false, error,message:"something is wrong" });
       }
       break;

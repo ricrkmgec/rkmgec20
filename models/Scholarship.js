@@ -4,19 +4,19 @@ const ScholarshipSchema = new mongoose.Schema(
   {
     scholarship_name: {
       type: String,
-      maxlength: [60, "Name cannot be more than 60 characters"],
+      maxlength: [50, "Scholarship Title cannot be more than 50 characters"],
       required: [true, "Please provide the  Scholarship Title"],
     },
  
     details: {
       type: String,
   
-      minlength: [20, "Book Title cannot be more than 60 characters"],
+      minlength: [10, "Scholarship details cannot be less than 100 characters"],
     },
     type: {
       type: String,
-      required: [true, "Please provide the author name"],
-      maxlength: [20, "Author cannot be more than 60 characters"],
+      required: [true, "Please provide the type"],
+      maxlength: [20, "Type cannot be more than 20 characters"],
     },
     
   },

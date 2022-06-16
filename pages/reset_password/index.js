@@ -16,6 +16,7 @@ const Reset = (props) => {
   async function handleSubmit(e) {
     e.preventDefault();
     //call api
+
     const resetApi = await fetch("../api/reset_password", {
       method: "POST",
       headers: {

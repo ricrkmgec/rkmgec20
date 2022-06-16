@@ -808,7 +808,6 @@ export async function getServerSideProps() {
     let merge = _.merge(user, bk[i], bk[i].userId);
     arr.push(merge)
   }
-  console.log(arr)
   return {
     props: {
       ebook: JSON.parse(JSON.stringify(arr)),

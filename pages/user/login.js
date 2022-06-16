@@ -39,7 +39,7 @@ const Login = (props) => {
         password,
       }),
     }).catch((error) => {
-      console.error("Error:", error);
+    return error;
     });
 
     let data = await loginApi.json();

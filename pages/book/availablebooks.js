@@ -6,26 +6,15 @@ import dbConnect from "../../lib/mongodb";
 import Books from "../../models/Books";
 import User from "../../models/User";
 import axios from "axios";
-import api from "../../lib/api";
-import useSWR from "swr";
 import _ from "lodash"
 import Link from 'next/link'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+const DOMAIN=process.env.DOMAIN
 // import User from "../../models/User";
 function Availablebooks({ books, loggedIn }) {
   const [search, setSearch] = useState("");
-  const [user, setUser] = useState({});
-  const [userid, setUserid] = useState("");
-  // {push}=useRouter()
-  useEffect(() => {
-    const fetchUser = async () => {
-      const res = await axios.get(`/`);
-      setUser(res.data);
-    };
-  });
-
+  const router=useRouter();
 
 
   return (
@@ -52,10 +41,9 @@ function Availablebooks({ books, loggedIn }) {
                   setSearch(e.target.value);
                 }}
               />
-
+            
               <table className="table">
                 <thead>
-                  {/* <caption>Available Books</caption> */}
                   <tr>
                     <th>Book Title</th>
                     <th>Auther</th>
@@ -86,6 +74,7 @@ function Availablebooks({ books, loggedIn }) {
                       //   .includes(search.toLocaleLowerCase())
                     ) {
                       return book;
+                      
                     }
                     // else if(search!=book.book.toLowerCase().includes(search.toLocaleLowerCase())){
                     //   return <h1>Search term not found</h1>
@@ -94,6 +83,7 @@ function Availablebooks({ books, loggedIn }) {
 
                   .map((book, index) => {
                     return (
+                      
                       book.isShow === true && (
                         <>
                           <tbody>
@@ -134,7 +124,7 @@ function Availablebooks({ books, loggedIn }) {
             <div>
 
               <h1>Sorry, Your are not Logged in please login first</h1>
-              <Link href={`DOMAIN/user/login`} passHref>
+              <Link href={router.push('../user/login')} passHref>
                 <button className="btn" >
                   login
                 </button>
@@ -188,24 +178,19 @@ function Availablebooks({ books, loggedIn }) {
 }
 export default Availablebooks;
 
-export async function getServerSideProps(params) {
-  // const { db } = await dbConnect();
-  // let bk = await Book.find({})
-  // let arr = []
-  // for (var i = 0; i < bk.length; i++) {
-  //   let id = bk[i].userId
-  //   let user = await User.findOne({ _id: id });
-  //   let merge = _.merge(bk[i], user, bk[i].userId);
-  //   arr.push(merge)
-  // }
-  const books = await Books.findOne({author:'abc'}).lean();
-  console.log(books)
-  // const user = await User.findById(params.userId).lean();
-  // console.log(user)
+export async function getServerSideProps() {
+  const { db } = await dbConnect();
+  let bk = await Books.find({})
+  let arr = []
+  for (var i = 0; i < bk.length; i++) {
+    let id = bk[i].userId
+    let user = await User.findOne({ _id: id });
+    let merge = _.merge(user, bk[i], bk[i].userId);
+    arr.push(merge)
+  }
   return {
     props: {
-      books: JSON.parse(JSON.stringify(books)),
-      // user: JSON.parse(JSON.stringify(user)),
+      books: JSON.parse(JSON.stringify(arr)),
     },
   };
 }

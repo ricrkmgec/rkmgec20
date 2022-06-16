@@ -7,7 +7,6 @@ export default async function handler (req, res) {
     const { bookId} = req.query
     const { method} = req;
     const {  userId,name,session,book_title,author,contact } = req.body;
-    // console.log(req.body)
     switch (method) {
     //  case "GET":
     // try {
@@ -37,14 +36,7 @@ export default async function handler (req, res) {
 // break;
         case "POST":
             try {
-            //   const user = await User.findOne({ email  book_title  });
-            //   if (user) {
-            //     return res.status(422).json({ error: "please another email" });
-            //   }
-          // console.log(name)
-          // console.log(userId)
           const already=await Books.findOne({book_title})
-          console.log(already)
           if (already) {
             if (already.userId==userId) {
               return res.status(400).json({error:true,success:false,message:"Already Submitted"})

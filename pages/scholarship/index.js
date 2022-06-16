@@ -1,28 +1,38 @@
 import React, { useState, useEffect } from "react";
-// import d from '../../public/bookbg'
+import { AiFillDelete } from 'react-icons/ai';
 import dbConnect from "../../lib/mongodb";
 import Scholarship from "../../models//Scholarship";
-import axios from "axios";
-import useSWR from "swr";
 import Link from "next/link";
-import auth from "../api/auth";
+import api from "../../lib/api"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-function index({ scholarship, loggedIn }) {
-  // auth(req, res)
-  // const token = req.headers["  x-auth-token"];
-  // console.log(token)
-  // const data =  fetch("../api/me");
+function index({ scholarship, loggedIn,data }) {
 
+  const handleDeleteClient = async (_id) => {
+
+    try {
+      await api.delete(`/scholarship/${_id}`);
+      // toast({
+      toast.warn("sucessfully Deleted")
+      var element = document.getElementById(_id);
+     await element.remove();
+    } catch (error) {
+      toast.error("Something is wrong")
+    }
+  };
+
+let isadmin=false;
+if (data.admin == true) {
+  isadmin = true;
+}
 
   return (
     <div>
-
+<ToastContainer/>
        {loggedIn && (
          <> 
     <div className="containerr">
       <div className="main">
-        {/* style={justify-content: center;} */}
         <h1 className="bold " title="Scholarship">
           <b>SCHOLARSHIP INFORMATIONS</b>
         </h1>
@@ -32,11 +42,14 @@ function index({ scholarship, loggedIn }) {
             {scholarship.map((scholarship) => {
               return (
                 scholarship.type === "Inter College" && (
-                  <>
-                    <li key={scholarship._id}>
-                      <h3>{scholarship.scholarship_name}</h3>
-                    </li>
-                  </>
+                  <div style={{display:"flex",flexDirection:"row"}} key={scholarship._id}  id={scholarship._id} >
+                  <li >
+                    <h3>{scholarship.scholarship_name}</h3>
+                  </li>
+                  {isadmin&&(
+                      <div style={{color:"red",fontSize:"1.5rem",paddingTop:"1rem",paddingLeft:"1.5rem",cursor:"pointer"}} onClick={()=>handleDeleteClient(scholarship._id)}><a><AiFillDelete/></a></div>
+                    )}
+                </div>
                 )
                 );
               })}
@@ -47,11 +60,14 @@ function index({ scholarship, loggedIn }) {
             {scholarship.map((scholarship) => {
               return (
                 scholarship.type === "Intra College" && (
-                  <>
-                    <li key={scholarship._id}>
+                  <div style={{display:"flex",flexDirection:"row"}} key={scholarship._id}  id={scholarship._id} >
+                    <li >
                       <h3>{scholarship.scholarship_name}</h3>
                     </li>
-                  </>
+                    {isadmin&&(
+                        <div style={{color:"red",fontSize:"1.5rem",paddingTop:"1rem",paddingLeft:"1.5rem",cursor:"pointer"}} onClick={()=>handleDeleteClient(scholarship._id)}><a><AiFillDelete/></a></div>
+                      )}
+                  </div>
                 )
                 );
               })}
@@ -74,7 +90,7 @@ function index({ scholarship, loggedIn }) {
 <h1>Sorry, Your are not Logged in please login first</h1>
 <div>
 
-            <Link href="http://localhost:3000/user/login" passHref>
+            <Link href="https://rkmgec.vercel.app/user/login" passHref>
             <button className="btn" >
                 login
             </button>

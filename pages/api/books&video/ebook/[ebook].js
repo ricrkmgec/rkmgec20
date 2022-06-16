@@ -4,7 +4,6 @@ import dbConnect from "../../../../lib/mongodb";
     
     export default async function handler(req, res) {
         const BookID  = req.query;
-        console.log(BookID.ebook);
     await dbConnect();
   const { method } = req;
 //   console.log({_id:BookID.book})
@@ -17,7 +16,6 @@ import dbConnect from "../../../../lib/mongodb";
         await res.status(200).json({ success: true ,message:"Ebook request is Approved"});
         // console.log('okkkkkkkkkkkkkk')
       } catch (error) {
-        console.log(error);
         res.status(500).json({ success: false, error,message:"something is wrong" });
       }
       break;

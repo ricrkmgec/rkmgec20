@@ -1,12 +1,12 @@
 import { AiFillDelete } from 'react-icons/ai';
 import { TiTick } from 'react-icons/ti';
 
-import React, { useState, useEffect } from "react";
-// import d from '../../public/bookbg'
+import React, { useState } from "react";
 import styles from "../../styles/Bookform.module.css";
-import useSWR from "swr";
+import _ from "lodash"
 import dbConnect from "../../lib/mongodb";
 import Books from "../../models/Books";
+import User from "../../models/User";
 import axios from "axios";
 import api from "../../lib/api";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,35 +17,6 @@ export default function BookUpdate({ books,loggedIn,data }) {
   const [userr, setUserr] = useState([]);
   const [isShow, setIsShow] = useState(true)
   const [userid, setUserid] = useState();
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     const res = await axios.get(`user/${userid}`);
-  //     setUser(res.data);
-  //   };
-  // });
-  /* this is an example for new snippet extension make by me xD */
-
-
-
-  const getusername = async (userid) => {
-
-
-     await setUserid(userid)
-    //  await console.log(userid)
-
-  };
-  useEffect((userid) => {
-    
-    axios.get(`../api/user/6259b1d162a845217bdbb6dd`).then(({ data }) => {
-console.log(data.data)
-        // setUserr(data);
-      //  res.status(200).json(data.data)
-      }).catch(error=>{
-        console.log(error)
-      })  
-  })
-
-
 
   const handleUpdateClient = async (_id) => {
 
@@ -62,8 +33,6 @@ console.log(data.data)
     }
   }
 
-
-
   const handleDeleteClient = async (_id) => {
 
     try {
@@ -72,31 +41,12 @@ console.log(data.data)
       toast.warn("sucessfully Deleted")
       var element = document.getElementById("tr");
      await element.remove();
-
-      // console.log(_id)
-      //   title: "Deletado com sucesso!!",
-      //   status: "info",
-      //   duration: 9000,
-      //   isClosable: true,
-      // });
     } catch (error) {
-      // console.log(error);
       toast.error("Something is wrong")
     }
   };
-
-
-  // const { data } = useSWR("/api/me", async function (args) {
-  //   const res = await fetch(args);
-  //   return res.json();
-  // });
-  // // console.log(data);
-  // if (!data) return <h1>Loading...</h1>;
-  // let loggedIn = false;
   let isadmin = false;
-  // if (!data.email == "") {
-  //   loggedIn = true;
-  // }
+
   if (data.admin == true) {
     isadmin = true;
   }
@@ -129,17 +79,6 @@ console.log(data.data)
                 </tr>
               
               </thead>
-              {/* {user.map((user, index) => (
-                <li key={index}>
-                  {user._id}
-                  </li>))} */}
-              {/* {console.log(userid)} */}
-              {/* {console.log(userr)} */}
-              {/* {user.map((ur)=>{return(<>
-                {ur.name}</>
-              )})} */}
-              {/* {data.map(boo)=>{return({boo.data})}} */}
-              
               {books
                 .filter((book) => {
                   if (search == "") {
@@ -168,9 +107,6 @@ console.log(data.data)
                       <>
                         {/* <li key={book._id}> */}
                         <tbody>
-                         
-                     
-                       
                           <tr key={book._id} id='tr'>
                             <td data-lebel='Book'>{book.book_title}</td>
                             <td data-lebel='author'> {book.author}</td>
@@ -180,30 +116,10 @@ console.log(data.data)
 
                             <td className='updateAndDelete' >
                               <div className="btngreen" onClick={() => handleUpdateClient(book._id)}><TiTick /></div>
-
-                
-                             
-                              {/* </td>
-                            <td> */}
                               <div className="btnred" onClick={() => handleDeleteClient(book._id)}><AiFillDelete /></div>
                             </td>
 
                           </tr>
-                          {/* {setUserid(book.userId)} */}
-                          {() => getusername(book.userId)}
-                          {console.log(userid)}
-                          {/* <button className="button bggreen"  onClick={()=>getusername(book.userId)}>apprggjjhove</button> */}
-
-
-                          {/* {data.data} */}
-                          {/* console.log({book.userId}) */}
-                          {/* {(book)=>setUserid(book.userId)} */}
-                          {/* setUserid({book.userId}); */}
-                          {/* <h2>Book Name : {book.book_title}</h2>
-                            <h4>Name : {book.author}</h4>
-                            <p>Contact No : {book.contact}</p> */}
-
-                          {/* <hr /> */}
                         </tbody>
 
 
@@ -212,14 +128,10 @@ console.log(data.data)
                   );
                 })}
             </table>
-            {/* {console.log({user})} */}
           </div>
         </div>
       )}
       <div className="body" style={{ paddingTop: `22vh`, textAlign: `center` }}>
-
-
-
         {!loggedIn && (
           <>
             <h1>Sorry You are not loggedin !!!</h1>
@@ -278,20 +190,18 @@ console.log(data.data)
 
 export async function getServerSideProps(_params) {
   const { db } = await dbConnect();
-  const books = await Books.find({}).lean();
-  // const user = await User.findById(params.userId).lean();
-  // pet._id = pet._id.toString()
-  // const books = await db
-  //   .collection("books")
-  //   .find({})
-  //   .sort({ metacritic: -1 })
-  //   .limit(20)
-  //   .toArray();
+  let bk = await Books.find({})
+  let arr = []
+  for (var i = 0; i < bk.length; i++) {
+    let id = bk[i].userId
+    let user = await User.findOne({ _id: id });
+    let merge = _.merge(user, bk[i], bk[i].userId);
+    arr.push(merge)
+  }
 
   return {
     props: {
-      books: JSON.parse(JSON.stringify(books)),
-      // user: JSON.parse(JSON.stringify(user)),
+      books: JSON.parse(JSON.stringify(arr)),
     },
   };
 }

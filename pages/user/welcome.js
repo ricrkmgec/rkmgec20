@@ -33,7 +33,7 @@ function Home({loggedIn,data}) {
                   // revalidate();
                   toast.info("SucessFully Loged Out 🖐️,See You");
                   setTimeout(() => {
-                    router.push("http://localhost:3000/user/login");
+                    router.push("https://rkmgec.vercel.app/user/login");
                   }, 1000);
                   onload()
                 }}
@@ -45,7 +45,7 @@ function Home({loggedIn,data}) {
           {!loggedIn && (
             <>
               <h1>Sorry, Your are not Logged in please login first</h1>
-              <Link href="http://localhost:3000/user/login" passHref>
+              <Link href="https://rkmgec.vercel.app/user/login" passHref>
               <button className="btn" >
                   login
               </button>

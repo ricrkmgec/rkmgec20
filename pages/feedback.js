@@ -36,7 +36,6 @@ function Form({ data, loggedIn }) {
       },
       body: JSON.stringify(ebookreq),
     });
-    console.log(response)
     let dataa = await response.json();
 
     if (dataa.success) {
@@ -159,7 +158,7 @@ function Form({ data, loggedIn }) {
                   <h1>Sorry, Your are not Logged in please login first</h1>
                   <div>
 
-                    <Link href="http://localhost:3000/user/login" passHref>
+                    <Link href="https://rkmgec.vercel.app/user/login" passHref>
                       <button className="btn" >
                         login
                       </button>

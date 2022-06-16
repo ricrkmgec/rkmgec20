@@ -33,7 +33,6 @@ export default async function handler(req, res) {
                     }
                     const saltRounds = 10;
                     const hashedPassword = await bcrypt.hash(password, saltRounds);
-                    console.log(hashedPassword)
                     cookie.remove("token");
                     await ahash.remove();
                     User.findByIdAndUpdate(user._id, { password: hashedPassword }, (err) => {

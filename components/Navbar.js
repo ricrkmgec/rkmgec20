@@ -100,21 +100,21 @@ function Navbar({data}) {
             <Link href="/"><a><li className={styles.li}>Home</li></a></Link>
             <Link href="/"><a><li className={styles.li}>about</li></a></Link>
             <Link href="/"><a><li className={styles.li}> events</li></a></Link>
-            <Link href="http://localhost:3000/feedback"><a><li className={styles.li}>Feedback</li></a></Link>
+            <Link href="https://rkmgec.vercel.app/feedback"><a><li className={styles.li}>Feedback</li></a></Link>
             <Link href="/"><a><li className={styles.li}>Contacts</li></a></Link>
             {!loggedIn && (
-              <Link href="http://localhost:3000/user/login"><a><li className={styles.li}>
+              <Link href="https://rkmgec.vercel.app/user/login"><a><li className={styles.li}>
               login </li></a>
             </Link>
             )}
             {loggedIn && (
-              <Link href="http://localhost:3000/user/login"><a><li className={styles.li}>{data.name.split(" ")[0]}</li></a>
+              <Link href="https://rkmgec.vercel.app/user/login"><a><li className={styles.li}>{data.name.split(" ")[0]}</li></a>
               </Link>
             )}
             
 
             {admin && (
-              <Link href="http://localhost:3000/admin"><a><li className={styles.li}>
+              <Link href="https://rkmgec.vercel.app/admin"><a><li className={styles.li}>
               Admin</li></a>
               </Link>
             )}

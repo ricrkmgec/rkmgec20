@@ -8,7 +8,7 @@ import "../styles/globals.css";
 export default function MyApp({ Component, pageProps }) {
 
 
-  const { data } = useSWR("https://rkmgec.vercel.app/api/me", async function (args) {
+  const { data } = useSWR("http://localhost:3000/api/me", async function (args) {
     const res = await fetch(args);
     return res.json();
   });

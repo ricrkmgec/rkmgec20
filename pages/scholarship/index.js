@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 function index({ scholarship, loggedIn,data }) {
 
   const handleDeleteClient = async (_id) => {
-
+    if(confirm("Are You sure, You want to delete?")==true){
     try {
       await api.delete(`/scholarship/${_id}`);
       // toast({
@@ -18,8 +18,10 @@ function index({ scholarship, loggedIn,data }) {
      await element.remove();
     } catch (error) {
       toast.error("Something is wrong")
-    }
+    }}
   };
+
+
 
 let isadmin=false;
 if (data.admin == true) {

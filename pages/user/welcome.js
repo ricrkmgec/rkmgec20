@@ -26,6 +26,7 @@ function Home({loggedIn,data}) {
           {loggedIn && (
             <>
               <h1>Welcome {data.name}!</h1>
+              <button onClick={()=>{router.push("https://rkmgec.vercel.app/",toast.success("Welcome to Home Page🙏"))}}>Home Page</button>
               <button
                 className="btn"
                 onClick={() => {

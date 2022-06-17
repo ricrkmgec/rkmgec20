@@ -79,7 +79,7 @@ document.body.addEventListener('click',closes)
           // borderBottom:`1px solid red`,
         }}
       >
-        <div className={styles.logo}><span className={styles.r}>R</span>KMGEC</div>
+        <div className={styles.logo} ><Link href="https://rkmgec.vercel.app/" passHref><a><span className={styles.r}>R</span>KMGEC</a></Link></div>
 
         <div ref={btnref}
           className={open === false ? styles.menubar : styles.close}

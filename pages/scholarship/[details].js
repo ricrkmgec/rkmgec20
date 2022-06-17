@@ -37,8 +37,8 @@ console.log(scholarship[0]._id)
           <b>{scholarship[0].scholarship_name}</b>
         </h1>
         <div className="tbl">
-
         <p style={{fontSize:"1.5rem"}}>{scholarship[0].details}</p>
+        <Link href={scholarship[0].link} ><a style={{fontSize:"2rem",fontWeight:"bold",color:"green"}}>Apply</a></Link>
         </div>
       </div>
     </div>

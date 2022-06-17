@@ -4,13 +4,14 @@ import dbConnect from "../../../lib/mongodb";
 export default async function handler(req, res) {
   await dbConnect();
   const { method } = req;
-  const { scholarship_name, details, type, } = req.body;
+  const { scholarship_name, details,link, type, } = req.body;
   switch (method) {
     case "POST":
       try {
         const newScholarship = new Scholarship({
           scholarship_name,
           details,
+          link,
           type,
         });
         const savedScholarship = await newScholarship.save();

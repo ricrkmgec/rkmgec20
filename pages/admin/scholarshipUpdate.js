@@ -12,6 +12,7 @@ function ScholarshipUpdate({ loggedIn, data }) {
   const router = useRouter();
   const [scholarship_name, setScholarship_name] = useState("");
   const [details, setDetails] = useState("");
+  const [link, setLink] = useState("");
   const [type, setType] = useState("");
 
   const handlePost = async (e) => {
@@ -21,6 +22,7 @@ function ScholarshipUpdate({ loggedIn, data }) {
     let scholarshipreq = {
       scholarship_name,
       details,
+      link,
       type,
     };
     let response = await fetch(`https://rkmgec.vercel.app/api/scholarship/sc`, {
@@ -82,6 +84,16 @@ if(data.admin==true){
                     name="details"
                     value={details}
                     onChange={(e) => setDetails(e.target.value)}
+                  />
+                  <br />
+                  <input
+                    className="form-control"
+                    placeholder="Link"
+                    type="text"
+                    required={true}
+                    name="link"
+                    value={link}
+                    onChange={(e) => setLink(e.target.value)}
                   />
                   <br />
 

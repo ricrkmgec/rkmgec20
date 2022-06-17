@@ -11,7 +11,10 @@ const ScholarshipSchema = new mongoose.Schema(
     details: {
       type: String,
   
-      minlength: [10, "Scholarship details cannot be less than 100 characters"],
+      minlength: [10, "Scholarship details cannot be less than 10 characters"],
+    },
+    link: {
+      type: String,
     },
     type: {
       type: String,

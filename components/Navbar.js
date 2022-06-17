@@ -1,10 +1,10 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect,useRef } from "react";
 import Link from "next/link";
 import styles from "../styles/Navbar.module.css";
 // import { useSWR } from 'swr';
-function Navbar({data}) {
+function Navbar({ data }) {
   const [open, setOpen] = useState(false);
-
+const btnref=useRef();
   const [clientWindowHeight, setClientWindowHeight] = useState("");
 
   const [backgroundTransparacy, setBackgroundTransparacy] = useState(0);
@@ -15,6 +15,20 @@ function Navbar({data}) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   });
+useEffect(() => {
+const closes=e=>{
+  if(e.path[0].className.split(" ")[0]!=="jsx-b3e1b6a7c9b96113"){
+    // console.log( e.path[0].className.split(" ")[0])
+
+    // console.log(btnref.current)
+    setOpen(false);
+  }
+}  
+document.body.addEventListener('click',closes)
+  return () => {
+    document.body.addEventListener('click',closes)
+  }
+}, [])
 
   const handleScroll = () => {
     setClientWindowHeight(window.scrollY);
@@ -51,9 +65,12 @@ function Navbar({data}) {
     admin = true;
   }
   // console.log(loggedIn);
+  
+
   return (
     <div className={styles.navbarmain}>
-    <div
+
+      <div
         className={styles.nav}
         style={{
           background: `rgba(110, 89, 25, ${backgroundTransparacy})`,
@@ -64,7 +81,7 @@ function Navbar({data}) {
       >
         <div className={styles.logo}><span className={styles.r}>R</span>KMGEC</div>
 
-        <div
+        <div ref={btnref}
           className={open === false ? styles.menubar : styles.close}
           onClick={() => setOpen(!open)}
         >
@@ -94,7 +111,8 @@ function Navbar({data}) {
           className={
             open === false ? styles.navbar : styles.navbar + " " + styles.active
           }
-        // className={styles.navbar}
+          // className={styles.navbar} 
+          id='navbox'
         >
           <ul className={styles.ul}>
             <Link href="/"><a><li className={styles.li}>Home</li></a></Link>
@@ -104,18 +122,18 @@ function Navbar({data}) {
             <Link href="/"><a><li className={styles.li}>Contacts</li></a></Link>
             {!loggedIn && (
               <Link href="https://rkmgec.vercel.app/user/login"><a><li className={styles.li}>
-              login </li></a>
-            </Link>
+                login </li></a>
+              </Link>
             )}
             {loggedIn && (
               <Link href="https://rkmgec.vercel.app/user/login"><a><li className={styles.li}>{data.name.split(" ")[0]}</li></a>
               </Link>
             )}
-            
+
 
             {admin && (
               <Link href="https://rkmgec.vercel.app/admin"><a><li className={styles.li}>
-              Admin</li></a>
+                Admin</li></a>
               </Link>
             )}
 

@@ -8,12 +8,16 @@ import useSWR from "swr";
 import { FaUserGraduate } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import gui from '../../public/1_e_Loq49BI4WmN7o9ItTADg.gif'
+import ld from '../../public/Ellipsis-1s-200px.svg'
+import Image from 'next/image'
 
 const Login = (props) => {
   const router = useRouter();
   const [loginerror, setLoginerror] = useState(false)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { data } = useSWR("../api/me", async function (args) {
     const res = await fetch(args);
@@ -27,6 +31,7 @@ const Login = (props) => {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true)
     //call api
     const loginApi = await fetch("../api/user/login", {
       method: "POST",
@@ -39,32 +44,31 @@ const Login = (props) => {
         password,
       }),
     }).catch((error) => {
-    return error;
+      return error;
     });
-
+    setLoading(false);
     let data = await loginApi.json();
     if (data.success && data.token) {
       // set cookie, 
-      cookie.set("token",data.token,{ expires: 30});
+      cookie.set("token", data.token, { expires: 30 });
       router.push("./welcome");
-setTimeout(() => {
-  
-  onload();
-}, 500);
+      // setTimeout(() => {
+
+        onload();
+      // }, 5);
       toast.success(data.message);
     } else {
       setLoginerror(true)
       toast.error(data.message);
-      
+
     }
   }
 
-  function onload(){
+  function onload() {
     window.location.reload(false);
   }
-
   return (
-    
+
     <>
       <Head>
         <title>login</title>
@@ -73,26 +77,26 @@ setTimeout(() => {
           name="viewport"
           content="width=device-width,minimum-scale=1,initial-scale=1,maximum-scale=1"
         />
-         {/* <meta httpEquiv="refresh" content="0" URL ='/' /> */}
-      </Head>  
-     {loginerror &&(<ToastContainer
-position="top-center"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-/>)}
-        
-      
-      
-    <div className="body">
-      {!loggedIn && (
-        <>
-  
+        {/* <meta httpEquiv="refresh" content="0" URL ='/' /> */}
+      </Head>
+      {loginerror && (<ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />)}
+
+
+
+      <div className="body">
+        {!loggedIn && (
+          <>
+
             <div className="container">
               <form onSubmit={handleSubmit}>
                 <div className="form-icon">
@@ -115,7 +119,7 @@ pauseOnHover
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <button  type="submit" value="Submit" className="btn">
+                <button type="submit" value="Submit" className="btn">
                   login
                 </button>
                 {/* {router.push('/')} */}
@@ -126,42 +130,51 @@ pauseOnHover
                 </Link>
               </h5>
             </div>
-         
-        </>
-      )}
-      {loggedIn && (
-        <>    
-        <div className="container">
-          
-          <h1>Welcome {data.name}!</h1>
-<div>
-<Link href='/' passHref><button className="btn" onClick={()=>toast.info("Welcome to Home Page")}>
-            Homepage
-          </button>
-          </Link>
+            {(loading === true) && (
+              <div style={{
+                justifyContent: 'center', margin: 'auto', alignItems: 'center', display: 'block', position: 'absolute',
+                borderRadius: '50%'
+              }}>
+                <Image src={ld} alt='gui' height={100} width={120} />
+              </div>
 
-</div>
-<div>
-  
-          <button
-            className="btn"
-            onClick={() => {
-              cookie.remove("token");
-              router.push("/");
-              toast.info("Succesfully Logout");
-              setTimeout(() => {
-                
-                onload()
-              }, 500);
-            }}
-            >
-            Logout
-          </button>
-                </div>
+            )}
+          </>
+        )}
+
+        {loggedIn && (
+          <>
+            <div className="container">
+
+              <h1>Welcome {data.name}!</h1>
+              <div>
+                <Link href='/' passHref><button className="btn" onClick={() => toast.info("Welcome to Home Page")}>
+                  Homepage
+                </button>
+                </Link>
+
+              </div>
+              <div>
+
+                <button
+                  className="btn"
+                  onClick={() => {
+                    cookie.remove("token");
+                    router.push("/");
+                    toast.info("Succesfully Logout");
+                    setTimeout(() => {
+
+                      onload()
+                    }, 500);
+                  }}
+                >
+                  Logout
+                </button>
+              </div>
             </div>
-        </>
-      )}
- </div>
+          </>
+        )}
+      </div>
       <style jsx>
         {`
 

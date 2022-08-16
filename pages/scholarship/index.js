@@ -46,7 +46,7 @@ if (data.admin == true) {
                 scholarship.type === "Inter College" && (
                   <div style={{display:"flex",flexDirection:"row"}} key={scholarship._id}  id={scholarship._id} >
                   <li >
-                  <h3><Link href={`https://rkmgec.vercel.app/scholarship/${scholarship.scholarship_name}`} passHref><a >{scholarship.scholarship_name}</a></Link></h3>
+                  <h3><Link href={`${process.env.DOMAIN}/scholarship/${scholarship.scholarship_name}`} passHref><a >{scholarship.scholarship_name}</a></Link></h3>
                   </li>
                   {isadmin&&(
                       <div style={{color:"red",fontSize:"1.5rem",paddingTop:"1rem",paddingLeft:"1.5rem",cursor:"pointer"}} onClick={()=>handleDeleteClient(scholarship._id)}><a><AiFillDelete/></a></div>
@@ -64,7 +64,7 @@ if (data.admin == true) {
                 scholarship.type === "Intra College" && (
                   <div style={{display:"flex",flexDirection:"row"}} key={scholarship._id}  id={scholarship._id} >
                     <li >
-                      <h3><Link href={`https://rkmgec.vercel.app/scholarship/${scholarship.scholarship_name}`} passHref><a >{scholarship.scholarship_name}</a></Link></h3>
+                      <h3><Link href={`${process.env.DOMAIN}/scholarship/${scholarship.scholarship_name}`} passHref><a >{scholarship.scholarship_name}</a></Link></h3>
                     </li>
                     {isadmin&&(
                         <div style={{color:"red",fontSize:"1.5rem",paddingTop:"1rem",paddingLeft:"1.5rem",cursor:"pointer"}} onClick={()=>handleDeleteClient(scholarship._id)}><a><AiFillDelete/></a></div>
@@ -92,7 +92,7 @@ if (data.admin == true) {
 <h1>Sorry, Your are not Logged in please login first</h1>
 <div>
 
-            <Link href="https://rkmgec.vercel.app/user/login" passHref>
+            <Link href={`${process.env.DOMAIN}`} passHref>
             <button className="btn" >
                 login
             </button>

@@ -10,7 +10,7 @@ function Home({loggedIn,data}) {
   function onload(){
     window.location.reload(false);
   }
-
+const DOMAIN=process.env.DOMAIN
   return (
     <div>
       <Head>
@@ -26,7 +26,7 @@ function Home({loggedIn,data}) {
           {loggedIn && (
             <>
               <h1>Welcome {data.name}!</h1>
-              <button className="btn" onClick={()=>{router.push("https://rkmgec.vercel.app/",toast.success("Welcome to Home Page🙏"))}}>Home Page</button>
+              <button className="btn" onClick={()=>{router.push(`${DOMAIN}`,toast.success("Welcome to Home Page🙏"))}}>Home Page</button>
               <button
                 className="btn"
                 onClick={() => {
@@ -34,7 +34,7 @@ function Home({loggedIn,data}) {
                   // revalidate();
                   toast.info("SucessFully Loged Out 🖐️,See You");
                   setTimeout(() => {
-                    router.push("https://rkmgec.vercel.app/user/login");
+                    router.push(`${DOMAIN}/user/login`);
                   }, 1000);
                   onload()
                 }}
@@ -46,7 +46,7 @@ function Home({loggedIn,data}) {
           {!loggedIn && (
             <>
               <h1>Sorry, Your are not Logged in please login first</h1>
-              <Link href="https://rkmgec.vercel.app/user/login" passHref>
+              <Link href={`${DOMAIN}/user/login`}passHref>
               <button className="btn" >
                   login
               </button>

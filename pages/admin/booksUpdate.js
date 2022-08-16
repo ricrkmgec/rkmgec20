@@ -23,6 +23,7 @@ export default function BookUpdate({ books,loggedIn,data }) {
     try {
       await api.put(`/book/${_id}`, { isShow });
       // setIsShow(true);
+      console.log("first")
       toast.success("sucessfully update")
       var element = document.getElementById("tr");
       await element.remove();
@@ -101,13 +102,13 @@ export default function BookUpdate({ books,loggedIn,data }) {
                   //   return <h1>Search term not found</h1>
                   // }
                 })
-                .map((book) => {
+                .map((book,index) => {
                   return (
                     book.isShow === false && (
                       <>
                         {/* <li key={book._id}> */}
                         <tbody>
-                          <tr key={book._id} id='tr'>
+                          <tr key={index} id='tr'>
                             <td data-lebel='Book'>{book.book_title}</td>
                             <td data-lebel='author'> {book.author}</td>
                             <td data-lebel='contact'>{book.contact}</td>

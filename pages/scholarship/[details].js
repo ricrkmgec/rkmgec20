@@ -53,7 +53,7 @@ console.log(scholarship[0]._id)
 <h1>Sorry, Your are not Logged in please login first</h1>
 <div>
 
-            <Link href="https://rkmgec.vercel.app/user/login" passHref>
+            <Link href={`${process.env.DOMAIN}/user/login`} passHref>
             <button className="btn" >
                 login
             </button>

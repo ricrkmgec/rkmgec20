@@ -6,33 +6,33 @@ function Navbar({ data }) {
   const [open, setOpen] = useState(false);
 const btnref=useRef();
   const [clientWindowHeight, setClientWindowHeight] = useState("");
-
   const [backgroundTransparacy, setBackgroundTransparacy] = useState(0);
   const [padding, setPadding] = useState(0);
   const [boxShadow, setBoxShadow] = useState(0);
-
+const DOMAIN=process.env.DOMAIN;
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   });
-useEffect(() => {
-const closes=e=>{
-  if(e.path[0].className.split(" ")[0]!=="jsx-b3e1b6a7c9b96113"){
-    // console.log( e.path[0].className.split(" ")[0])
+// useEffect(() => {
+// const closes=e=>{
+//   if(e.path[0].className.split(" ")[0]!=="jsx-b3e1b6a7c9b96113"){
+//     // console.log( e.path[0].className.split(" ")[0])
 
-    // console.log(btnref.current)
-    setOpen(false);
-  }
-}  
-document.body.addEventListener('click',closes)
-  return () => {
-    document.body.addEventListener('click',closes)
-  }
-}, [])
+//     console.log("hiii")
+//     setOpen(false);
+//   }
+// }  
+// document.body.addEventListener('click',closes)
+//   return () => {
+//     document.body.addEventListener('click',closes)
+//   }
+// }, [])
 
   const handleScroll = () => {
     setClientWindowHeight(window.scrollY);
   };
+ 
 
   useEffect(() => {
     let backgroundTransparacyVar = clientWindowHeight / 600;
@@ -79,7 +79,7 @@ document.body.addEventListener('click',closes)
           // borderBottom:`1px solid red`,
         }}
       >
-        <div className={styles.logo} ><Link href="https://rkmgec.vercel.app/" passHref><a><span className={styles.r}>R</span>KMGEC</a></Link></div>
+        <div className={styles.logo} ><Link href={`${DOMAIN}`} passHref><a><span className={styles.r}>R</span>KMGEC</a></Link></div>
 
         <div ref={btnref}
           className={open === false ? styles.menubar : styles.close}
@@ -118,21 +118,21 @@ document.body.addEventListener('click',closes)
             <Link href="/"><a><li className={styles.li}>Home</li></a></Link>
             <Link href="/"><a><li className={styles.li}>about</li></a></Link>
             <Link href="/"><a><li className={styles.li}> events</li></a></Link>
-            <Link href="https://rkmgec.vercel.app/feedback"><a><li className={styles.li}>Feedback</li></a></Link>
+            <Link href={`${DOMAIN}/feedback`}><a><li className={styles.li}>Feedback</li></a></Link>
             <Link href="/"><a><li className={styles.li}>Contacts</li></a></Link>
             {!loggedIn && (
-              <Link href="https://rkmgec.vercel.app/user/login"><a><li className={styles.li}>
+              <Link href={`${DOMAIN}/user/login`}><a><li className={styles.li}>
                 login </li></a>
               </Link>
             )}
             {loggedIn && (
-              <Link href="https://rkmgec.vercel.app/user/login"><a><li className={styles.li}>{data.name.split(" ")[0]}</li></a>
+              <Link href={`${DOMAIN}/user/login`}><a><li className={styles.li}>{data.name.split(" ")[0]}</li></a>
               </Link>
             )}
 
 
             {admin && (
-              <Link href="https://rkmgec.vercel.app/admin"><a><li className={styles.li}>
+              <Link href={`${DOMAIN}/admin`}><a><li className={styles.li}>
                 Admin</li></a>
               </Link>
             )}

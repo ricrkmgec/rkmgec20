@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import { DynamicRoutes } from "next/dist/server/router";
 
 export default function Home() {
   return (
@@ -125,7 +126,7 @@ export default function Home() {
           </Link>
         </div>
         <div className={styles.box}>
-          <Link href="/">
+          <Link href="./necessity">
             <a>
               <Image
                 className={styles.img}

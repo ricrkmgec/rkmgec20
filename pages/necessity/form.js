@@ -4,7 +4,8 @@ import Head from 'next/head';
 import Link from 'next/link'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useS3Upload} from "next-s3-upload";
+import {getImageData, useS3Upload} from "next-s3-upload";
+import Image from 'next/image';
 function Form({loggedIn,data}) {
     const router = useRouter();
     const [product_name, setProduct_name] = useState("");
@@ -13,8 +14,10 @@ function Form({loggedIn,data}) {
     const [contact, setContact] = useState("");
     const [file, setFile] = useState()
     let [imageUrl, setImageUrl] = useState([]);
+    let [height, setHeight] = useState();
+    let [width, setWidth] = useState();
     // let { uploadToS3 } = useS3Upload();
-    let { uploadToS3, files } = useS3Upload();
+    let {FileInput, uploadToS3, files } = useS3Upload();
 
 //     const handleImage= async(e)=>{
 //       console.log(e.target.files[0])
@@ -31,7 +34,9 @@ function Form({loggedIn,data}) {
       for (let index = 0; index < files.length; index++) {
         const file = files[index];
         const { url } = await uploadToS3(file);
-  
+        let { height, width } = await getImageData(file);
+        setWidth(width);
+        setHeight(height);
         setImageUrl(current => [...current,url]);
       }
     };
@@ -152,7 +157,7 @@ function Form({loggedIn,data}) {
                   imageUrl.map((url,index)=>{
                     return(
                     <>
-                    <img style={{height:'200px',margin:'5px',border:'2px solid #555555'}} src={url} alt="" key={index} />
+                    <Image width={100} height={100} style={{height:'200px',margin:'5px',border:'2px solid #555555'}} src={url} alt="" key={index} />
                     </>
                     )
                   })

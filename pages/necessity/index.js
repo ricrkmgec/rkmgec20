@@ -50,7 +50,7 @@ function Index({ dataa, data, loggedIn }) {
                   <div className={styles.container} key={index}>
                     {/* <a href=''> */}
                     <div className={styles.card}>
-                      <img className={styles.img} src={data.imageUrl[0]} alt="img" />
+                      <Image className={styles.img} height={100} width={100} src={data.imageUrl[0]} alt="img" />
 
                       <div className={styles.card__details}>
                         <span className={styles.tag}>Nature</span>

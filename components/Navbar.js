@@ -14,20 +14,20 @@ const DOMAIN=process.env.DOMAIN;
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   });
-// useEffect(() => {
-// const closes=e=>{
-//   if(e.path[0].className.split(" ")[0]!=="jsx-b3e1b6a7c9b96113"){
-//     // console.log( e.path[0].className.split(" ")[0])
+useEffect(() => {
+const closes=e=>{
+  if(e.path[0].className.split(" ")[0]!=="jsx-b3e1b6a7c9b96113"){
+    // console.log( e.path[0].className.split(" ")[0])
 
-//     console.log("hiii")
-//     setOpen(false);
-//   }
-// }  
-// document.body.addEventListener('click',closes)
-//   return () => {
-//     document.body.addEventListener('click',closes)
-//   }
-// }, [])
+    console.log("hiii")
+    setOpen(false);
+  }
+}  
+document.body.addEventListener('click',closes)
+  return () => {
+    document.body.addEventListener('click',closes)
+  }
+}, [])
 
   const handleScroll = () => {
     setClientWindowHeight(window.scrollY);

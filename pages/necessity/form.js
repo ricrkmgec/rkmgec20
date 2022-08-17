@@ -156,7 +156,7 @@ function Form({loggedIn,data}) {
                   imageUrl.map((url,index)=>{
                     return(
                     <>
-                    <Image width={100} height={100} style={{height:'200px',margin:'5px',border:'2px solid #555555'}} src={url} alt="" key={index} />
+                    <Image width={width} height={height} style={{margin:'5px',border:'2px solid #555555'}} src={url} alt="" key={index} />
                     </>
                     )
                   })

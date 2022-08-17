@@ -50,7 +50,7 @@ function Details({dataa,data,loggedIn}) {
                     </div>
 
                     <div className="product-price">
-                        <span>₹{dataa[0].price}</span>
+                        <span>₹{dataa[0].price}.00</span>
                         <Link href={`https://wa.me/+91`+dataa[0].contact+"?text=Hi, I am "+data.name+" I want to Buy Your product...."} text=
                         {"Hi, I am"+data.name+"I want to Buy Your product"}
                          >

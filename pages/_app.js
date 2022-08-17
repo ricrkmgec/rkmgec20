@@ -16,7 +16,7 @@ export default function MyApp({ Component, pageProps }) {
 // useEffect(()=>{
 //   import("bootstrap/dist/js/bootstrap");
 // },[])
-  const { data } = useSWR(`${process.env.DOMAIN}/api/me`, async function (args) {
+  const { data } = useSWR(`https://rkmgec.vercel.app/api/me`, async function (args) {
     const res = await fetch(args);
     return res.json();
   });

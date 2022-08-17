@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link'
 import React from "react";
+import Head from 'next/head';
 
 function Admin({ loggedIn, data }) {
   const router = useRouter()
@@ -11,6 +12,10 @@ function Admin({ loggedIn, data }) {
 
   return (
     <div className='body' style={{ paddingTop: `22vh`, textAlign: `center` }}>
+        <Head>
+        <meta charSet="UTF-8" />
+        <title>Admin</title>
+      </Head>
       {loggedIn && isadmin && (
         <div div className='container'>
           <h1 >Welcome {data.name}!!!</h1><h3>you are an ADMIN of RKMGEC</h3>
@@ -18,6 +23,7 @@ function Admin({ loggedIn, data }) {
           <Link href={"../admin/booksUpdate"} passHref><div className='btn'><h2>Book update</h2></div></Link>
           <Link href={"../admin/ebookUpdate"} passHref><div className='btn'><h2>Ebook and video update</h2></div></Link>
           <Link href={"../admin/scholarshipUpdate"} passHref><div className='btn'><h2>Schalarship update</h2></div></Link>
+          <Link href={"../admin/necessity"} passHref><div className='btn'><h2>Necessity update</h2></div></Link>
         </div>
       )}
       <div className="body" style={{ paddingTop: `22vh`, textAlign: `center` }}>

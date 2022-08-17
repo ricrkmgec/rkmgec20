@@ -12,8 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { FcLike } from "react-icons/fc";
 import { RiVideoFill } from "react-icons/ri";
 import { FaBlog, FaFilePdf } from "react-icons/fa";
-// import audio from './public/like.mp3'
-// import User from "../../models/User";
+import Head from "next/head";
 function Ebooks({ book, loggedIn, data }) {
   const [search, setSearch] = useState("");
   const [user, setUser] = useState({});
@@ -154,6 +153,10 @@ function Ebooks({ book, loggedIn, data }) {
   var all = Object.keys(filt).length;
   return (
     <div>
+        <Head>
+        <meta charSet="UTF-8" />
+        <title>Ebooks and Video</title>
+      </Head>
       <ToastContainer />
       {loggedIn && (
         <>

@@ -76,9 +76,9 @@ function Form({loggedIn,data}) {
   
         toast.success(dataa.message);
         toast.info("We are reviewing your Data,Thanks 🙏")
-        // setTimeout(() => {
-        //   router.push("/");
-        // }, 1000);
+        setTimeout(() => {
+          router.push("./");
+        }, 1000);
       } else {
         return toast.error(dataa.message);
       }
@@ -164,7 +164,7 @@ function Form({loggedIn,data}) {
                   
                 }
                 </div>
-                <input
+                <input style={{marginTop:'5px'}}
                   className="form-control"
                   type="file"
                   required={true}

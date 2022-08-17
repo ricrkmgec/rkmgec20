@@ -64,7 +64,7 @@ flex-direction: row;
     font-weight: 600;
     color: #ffae00;
     background-color: #fffae0;
-    margin: 0 auto;
+    margin: 0 2px;
     display: block;
     cursor: pointer;
   }
@@ -72,6 +72,42 @@ flex-direction: row;
 .button:hover {
   background-color: #ffae00;
   color: #f5f5ee;
+}
+  
+  .abutton {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+  
+    font-weight: 600;
+    color: greenyellow;
+    background-color: #e5ffe0;
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+  }
+  .abutton:focus,
+.abutton:hover {
+  background-color: #00ff37;
+  color: #fdfdfd;
+}
+  
+  .dbutton {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+  
+    font-weight: 600;
+    color: #ff1e00;
+    background-color: #ffe9e0;
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+  }
+  .dbutton:focus,
+.dbutton:hover {
+  background-color: #ff3300;
+  color: #f5f2ee;
 }
   
   .card__details {

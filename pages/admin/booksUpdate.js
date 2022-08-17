@@ -11,34 +11,26 @@ import axios from "axios";
 import api from "../../lib/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Head from 'next/head';
 
 export default function BookUpdate({ books,loggedIn,data }) {
   const [search, setSearch] = useState("");
-  const [userr, setUserr] = useState([]);
-  const [isShow, setIsShow] = useState(true)
-  const [userid, setUserid] = useState();
 
   const handleUpdateClient = async (_id) => {
-
     try {
       await api.put(`/book/${_id}`, { isShow });
-      // setIsShow(true);
       console.log("first")
       toast.success("sucessfully update")
       var element = document.getElementById("tr");
       await element.remove();
-      // console.log("sucessfully update")    
     } catch (error) {
-      // console.log(error);
       toast.error("something is wrong")
     }
   }
 
   const handleDeleteClient = async (_id) => {
-
     try {
       await api.delete(`/book/${_id}`);
-      // toast({
       toast.warn("sucessfully Deleted")
       var element = document.getElementById("tr");
      await element.remove();
@@ -54,6 +46,10 @@ export default function BookUpdate({ books,loggedIn,data }) {
 
   return (
     <div >
+        <Head>
+        <meta charSet="UTF-8" />
+        <title>Book Update</title>
+      </Head>
       <ToastContainer />
       {loggedIn && isadmin && (
         <div className={styles.body} style={{ paddingTop: `22vh` }}>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-// import d from '../../public/bookbg'
 import styles from "../../styles/Bookform.module.css";
 import dbConnect from "../../lib/mongodb";
 import Books from "../../models/Books";
@@ -10,8 +9,7 @@ import _ from "lodash"
 import Link from 'next/link'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const DOMAIN=process.env.DOMAIN
-// import User from "../../models/User";
+import Head from "next/head";
 function Availablebooks({ books, loggedIn }) {
   const [search, setSearch] = useState("");
   const router=useRouter();
@@ -19,7 +17,10 @@ function Availablebooks({ books, loggedIn }) {
 
   return (
     <div>
-
+  <Head>
+        <meta charSet="UTF-8" />
+        <title>Books</title>
+      </Head>
       <ToastContainer />
       {loggedIn && (
         <>

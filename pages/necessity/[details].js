@@ -6,6 +6,7 @@ import User from '../../models/User';
 import _ from 'lodash';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 function Details({dataa,data,loggedIn}) {
   const router=useRouter()
   if (!loggedIn) {
@@ -17,7 +18,10 @@ function Details({dataa,data,loggedIn}) {
   }else{
     return (
         <div style={{ paddingTop: `20vh` ,paddingBottom:'10vh'}}>
-          
+            <Head>
+        <meta charSet="UTF-8" />
+        <title>Necessity Details</title>
+      </Head>
             <main className="containerr">
                 <div className="left-column">
                     <InnerImageZoom  className="img" src={dataa[0].imageUrl[0]} alt="" />

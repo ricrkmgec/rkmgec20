@@ -6,6 +6,7 @@ import Link from "next/link";
 import api from "../../lib/api"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Head from "next/head";
 function index({ scholarship, loggedIn,data }) {
 
   const handleDeleteClient = async (_id) => {
@@ -30,6 +31,10 @@ if (data.admin == true) {
 
   return (
     <div>
+       <Head>
+        <meta charSet="UTF-8" />
+        <title>Scholarship</title>
+      </Head>
 <ToastContainer/>
        {loggedIn && (
          <> 

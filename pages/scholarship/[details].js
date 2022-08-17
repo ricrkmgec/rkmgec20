@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { AiFillDelete } from 'react-icons/ai';
-// import dbConnect from "../../lib/mongodb";
 import Scholarship from "../../models/Scholarship";
 import Link from "next/link";
 import api from "../../lib/api"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Head from "next/head";
 function Details({ scholarship, loggedIn,data }) {
 
   const handleDeleteClient = async (_id) => {
@@ -28,6 +27,10 @@ if (data.admin == true) {
 console.log(scholarship[0]._id)
   return (
     <div>
+        <Head>
+        <meta charSet="UTF-8" />
+        <title>{scholarship[0].scholarship_name}</title>
+      </Head>
 <ToastContainer/>
        {loggedIn && (
          <> 

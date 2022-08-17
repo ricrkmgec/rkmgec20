@@ -16,6 +16,7 @@ import _ from "lodash"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FcLike } from 'react-icons/fc';
+import Head from "next/head";
 // import audio from './public/like.mp3'
 // import User from "../../models/User";
 function Ebooks({ ebook, loggedIn, data }) {
@@ -57,11 +58,9 @@ function Ebooks({ ebook, loggedIn, data }) {
 
 
   const handleDeleteClient = async (_id) => {
-
     try {
       await api.delete(`/books&video/ebook/${_id}`).then(response => {
         if (response.data.success) {
-
           toast.warn(response.data.message)
           var element = document.getElementById("tr");
           element.remove();
@@ -71,31 +70,11 @@ function Ebooks({ ebook, loggedIn, data }) {
           toast.error(response.data.message)
         }
       })
-      // toast({
-
-      // console.log(_id)
-      //   title: "Deletado com sucesso!!",
-      //   status: "info",
-      //   duration: 9000,
-      //   isClosable: true,
-      // });
     } catch (error) {
-      // console.log(error);
       toast.error("Something is wrong")
     }
   };
 
-
-
-  //   const { data } = useSWR("../api/me", async function (args) {
-  //     const res = await fetch(args);
-  //     return res.json();
-  //   });
-  //   if (!data) return <h1>Loading...</h1>;
-  //   let loggedIn = false;
-  //   if (data.email) {
-  //     loggedIn = true;
-  //   }
   function onload() {
     window.location.reload(false);
   }
@@ -114,7 +93,6 @@ function Ebooks({ ebook, loggedIn, data }) {
         book.resource
           .toLowerCase()
           .includes(search.toLocaleLowerCase()) ||
-        // book.contact.includes(search) ||
         book.type
           .toLowerCase()
           .includes(search.toLocaleLowerCase(), filt++)
@@ -157,7 +135,10 @@ function Ebooks({ ebook, loggedIn, data }) {
   }
   return (
     <div>
-
+  <Head>
+        <meta charSet="UTF-8" />
+        <title>Ebook and Video Update</title>
+      </Head>
       <ToastContainer />
       {loggedIn && isadmin && (
         <>

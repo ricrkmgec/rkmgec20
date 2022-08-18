@@ -1,7 +1,6 @@
 import { React, useState, useEffect,useRef } from "react";
 import Link from "next/link";
 import styles from "../styles/Navbar.module.css";
-// import { useSWR } from 'swr';
 function Navbar({ data }) {
   const [open, setOpen] = useState(false);
 const btnref=useRef();
@@ -16,10 +15,7 @@ const DOMAIN=process.env.DOMAIN;
   });
 useEffect(() => {
 const closes=e=>{
-  if(e.path[0].className.split(" ")[0]!=="jsx-b3e1b6a7c9b96113"){
-    // console.log( e.path[0].className.split(" ")[0])
-
-    console.log("hiii")
+  if(e.path[3].className.split(" ")[0]!=="jsx-b3e1b6a7c9b96113"){
     setOpen(false);
   }
 }  
@@ -46,15 +42,6 @@ document.body.addEventListener('click',closes)
     }
   }, [clientWindowHeight]);
 
-  // const {data} = useSWR('../pages/api/me', async function(args) {
-  //   const res = await fetch(args);
-  //   return res.json();
-  // });
-  // const data = async function () {
-  //   const res = await fetch("../pages/api/me");
-  //   return res.json();
-  // };
-  // console.log(data);
   if (!data) return <h1>Loading...</h1>;
   let loggedIn = false;
   if (data.email) {
@@ -64,7 +51,6 @@ document.body.addEventListener('click',closes)
   if (data.admin) {
     admin = true;
   }
-  // console.log(loggedIn);
   
 
   return (

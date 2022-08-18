@@ -88,12 +88,14 @@ function Availablebooks({ books, loggedIn }) {
                       book.isShow === true && (
                         <>
                           <tbody>
-                            <tr key={index}>
+                            <tr key={book.createdAt}>
                               <td data-lebel="Book">{book.book_title}</td>
                               <td data-lebel="author"> {book.author}</td>
                               <td data-lebel="contact">{book.contact}</td>
                               <td data-lebel="name">{book.name}</td>
                               <td data-lebel="session">{book.session}</td>
+                              <td data-lebel="session">{book.createdAt
+}</td>
                             </tr>
                           </tbody>
 

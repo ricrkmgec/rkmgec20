@@ -18,8 +18,7 @@ export default function BookUpdate({ books,loggedIn,data }) {
 
   const handleUpdateClient = async (_id) => {
     try {
-      await api.put(`/book/${_id}`, { isShow });
-      console.log("first")
+      await api.put(`/book/${_id}`);
       toast.success("sucessfully update")
       var element = document.getElementById("tr");
       await element.remove();

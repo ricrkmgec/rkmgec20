@@ -46,9 +46,14 @@ function Details({dataa,data,loggedIn}) {
                             <a href="#">{dataa[0].session}</a>
 
                             <div className="cable-choose">
-                                <button>Straight</button>
-                                <button>Coiled</button>
-                                <button>Long-coiled</button>
+                            {dataa[0].tags.map((dt, index) => {
+                          return (
+                            <button style={{margin:'2px'}} key={index}>
+                              {dt}
+                            </button>
+                            )
+                          })
+                        }
                             </div>
                         </div>
                     </div>

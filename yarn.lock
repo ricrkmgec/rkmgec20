@@ -2316,6 +2316,11 @@ globby@^11.0.4:
     merge2 "^1.4.1"
     slash "^3.0.0"
 
+goober@^2.1.10:
+  version "2.1.10"
+  resolved "https://registry.yarnpkg.com/goober/-/goober-2.1.10.tgz#058def43ba1e3b06f973dbb372a4978aa42f1049"
+  integrity sha512-7PpuQMH10jaTWm33sQgBQvz45pHR8N4l3Cu3WMGEWmHShAcTuuP7I+5/DwKo39fwti5A80WAjvqgz6SSlgWmGA==
+
 graceful-fs@^4.2.10:
   version "4.2.10"
   resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.10.tgz"
@@ -3208,6 +3213,13 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-tag-input-component@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-tag-input-component/-/react-tag-input-component-1.1.1.tgz#21f1c2243a4639f5ee8aed9960ae983564a09acb"
+  integrity sha512-GltRO4e2oq4xG0SZ7bxrZIc8svhWuAVWa1Gi4TaCeIRQe33dh459DOJbUpPoVt6BEZlQmb7g4PI2AG6GiONoWw==
+  dependencies:
+    goober "^2.1.10"
 
 react-toastify@^8.2.0:
   version "8.2.0"

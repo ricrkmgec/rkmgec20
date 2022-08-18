@@ -19,7 +19,7 @@ const FeedbackSchema = new mongoose.Schema(
     contact: {
       type: Number,
       required: [true, "Please provide the Contact Number"],
-      maxlength: [10, "Resource  cannot be more than 10 characters"],
+      maxlength: [10, "Contact cannot be more than 10 characters"],
     },
     category: {
       type: String,

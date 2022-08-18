@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import Image from 'next/image'
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';
-import React, { useState ,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Necessity from '../../models/Necessity';
 import User from '../../models/User';
 import dbConnect from '../../lib/mongodb';
@@ -26,13 +26,13 @@ function Index({ dataa, data, loggedIn }) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   });
- const handleScroll=()=>{
-  setWindowSize(window.scrollY)
- }
+  const handleScroll = () => {
+    setWindowSize(window.scrollY)
+  }
   const router = useRouter();
   return (
     <div style={{ paddingTop: `22vh`, paddingBottom: '10vh' }}>
-        <Head>
+      <Head>
         <meta charSet="UTF-8" />
         <title>Necessity</title>
       </Head>
@@ -40,7 +40,7 @@ function Index({ dataa, data, loggedIn }) {
         <>
           <Link href={"../necessity/form"} passHref>
             <button
-              className={windowSize>100?'btn'+' hvr':'btn'+' rt'}
+              className={windowSize > 100 ? 'btn' + ' hvr' : 'btn' + ' rt'}
               style={{ width: "12rem", justifyContent: 'center', position: 'fixed', top: '80px', zIndex: '1', }}
             >
               {/* right:windowSize>100?'-180px':'50px', */}
@@ -58,9 +58,16 @@ function Index({ dataa, data, loggedIn }) {
                       <Image className={styles.img} height={100} width={180} src={data.imageUrl[0]} alt="img" />
 
                       <div className={styles.card__details}>
-                        <span className={styles.tag}>Nature</span>
 
-                        <span className={styles.tag}>Lake</span>
+                        <div style={{display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
+                        {data.tags.map((dt, index) => {
+                          return (
+                            <span className={styles.tag} key={index}>{dt}</span>
+                            )
+                          })
+                        }
+                        </div>
+
                         <div className={styles.name}>{data.product_name}</div>
                         <span style={{ fontSize: '15px', position: 'relative', }}>{moment(data.createdAt).fromNow()}</span>
                         <p className={styles.para}>{data.details.slice(0, 20) + "..."}</p>
@@ -103,7 +110,7 @@ function Index({ dataa, data, loggedIn }) {
 
             </div>
           </div>
-          
+
         </div>
       )}
       <style>{`

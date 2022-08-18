@@ -10,8 +10,6 @@ export default async function handler(req, res) {
   switch (method) {
     case "PUT":
       try {
-        const { isShow } = req.body;
-        console.log(isShow)
         // if (!name && !email) return "inavalid data";
         await Books.updateOne({ _id: BookID.book }, { isShow: true });
         await res.status(200).json({ success: true, message: "Book request is Approved" });

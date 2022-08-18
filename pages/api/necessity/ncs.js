@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   await dbConnect();
   const { method } = req;
   console.log(req.body)
-  const { userId,product_name, details,price,contact,imageUrl } = req.body;
+  const { userId,product_name, details,price,contact,selected,imageUrl } = req.body;
   switch (method) {
     case "POST":
       try {
@@ -15,6 +15,7 @@ export default async function handler(req, res) {
           details,
           price,
           contact,
+          tags:selected,
           imageUrl
         });
         const savedScholarship = await newNecessity.save();

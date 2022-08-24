@@ -4,7 +4,6 @@ import styles from "../../styles/Bookform.module.css";
 import dbConnect from "../../lib/mongodb";
 import Books from "../../models/Books";
 import User from "../../models/User";
-import axios from "axios";
 import _ from "lodash"
 import Link from 'next/link'
 import { ToastContainer, toast } from "react-toastify";
@@ -12,12 +11,14 @@ import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
 function Availablebooks({ books, loggedIn }) {
   const [search, setSearch] = useState("");
-  const router=useRouter();
+  const [setNum, setSetNum] = useState(1)
+  const router = useRouter();
 
+  const handleReadMore = () => { setSetNum(pre => pre + 10) }
 
   return (
     <div>
-  <Head>
+      <Head>
         <meta charSet="UTF-8" />
         <title>Books</title>
       </Head>
@@ -42,7 +43,7 @@ function Availablebooks({ books, loggedIn }) {
                   setSearch(e.target.value);
                 }}
               />
-            
+
               <table className="table">
                 <thead>
                   <tr>
@@ -65,55 +66,37 @@ function Availablebooks({ books, loggedIn }) {
                       book.author
                         .toLowerCase()
                         .includes(search.toLocaleLowerCase()) ||
-                      // book.contact.includes(search) ||
                       book.name
                         .toLowerCase()
                         .includes(search.toLocaleLowerCase())
-                      //    ||
-                      // book.session
-                      //   .toLowerCase()
-                      //   .includes(search.toLocaleLowerCase())
                     ) {
                       return book;
-                      
+
                     }
-                    // else if(search!=book.book.toLowerCase().includes(search.toLocaleLowerCase())){
-                    //   return <h1>Search term not found</h1>
-                    // }
-                  })
+                  }).slice(0, setNum)
 
                   .map((book, index) => {
                     return (
-                      
+
                       book.isShow === true && (
                         <>
                           <tbody>
-                            <tr key={book.createdAt}>
+                            <tr key={index}>
                               <td data-lebel="Book">{book.book_title}</td>
                               <td data-lebel="author"> {book.author}</td>
                               <td data-lebel="contact">{book.contact}</td>
                               <td data-lebel="name">{book.name}</td>
                               <td data-lebel="session">{book.session}</td>
-                              <td data-lebel="session">{book.createdAt
-}</td>
                             </tr>
                           </tbody>
-
-                          {/* <div>
-                        <h2>Book Name : </h2>
-                        <h4>Name : </h4>
-                        <p>Contact No : </p>
-                        <hr />
-                      </div> */}
-                          {/* while ({5>9}) {
-                        
-                      setUserid(book.userId)
-                      } */}
                         </>
                       )
                     );
                   })}
               </table>
+              <div>
+                <button style={{ width: '10rem' }} onClick={handleReadMore} className="btn">Load More</button>
+              </div>
             </div>
           </div>
 
@@ -193,7 +176,7 @@ export async function getServerSideProps() {
   }
   return {
     props: {
-      books: JSON.parse(JSON.stringify(arr)),
+      books: JSON.parse(JSON.stringify(arr.reverse())),
     },
   };
 }

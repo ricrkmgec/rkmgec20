@@ -118,7 +118,7 @@
     padding: 1rem;
   }
   
-  .boxcontainer .box{
+  .box{
     flex:1 1 30rem;
     border-radius: .5rem;
     overflow: hidden;

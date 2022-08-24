@@ -41,7 +41,7 @@ export default async function handler(req, res) {
               const hash = new AccessToken({ userId });
               await hash.save();
               // console.log(user)
-              await sendResetPasswordEmail({ User: user, hash: hash._id });
+            await sendResetPasswordEmail({ User: user, hash: hash._id });
               res.status(200).json({
                 success: true,
                 message:"We send Reset link in Your Official Email,Please check it",

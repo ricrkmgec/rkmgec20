@@ -1,15 +1,18 @@
 import nodemailer from "nodemailer";
 import { toast } from "react-toastify";
 import hbs from 'nodemailer-express-handlebars'
-const sendResetPasswordEmail = function ({ User, hash }) {
+const sendResetPasswordEmail = async function ({ User, hash }) {
     return new Promise((res, rej) => {
-        // console.log(process.env.GOOGLE_USER)
+        console.log(process.env.GOOGLE_USER)
         const transporter = nodemailer.createTransport({
-            service: "gmail",
+            // service: "gmail",
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
             auth: {
                 user: process.env.GOOGLE_USER,
                 pass: process.env.GOOGLE_PASSWORD,
-            }
+            },
         })
         // transporter.use('compile', hbs({
         //     viewEngine: "express-handlebars",
@@ -17,8 +20,8 @@ const sendResetPasswordEmail = function ({ User, hash }) {
         // }))
         const message = {
             from: process.env.GOOGLE_USER,
-            // to: User.email,
-            to:'jhs1941jhs@gmail.com',
+            to: User.email,
+            // to:'jhs1941jhs@gmail.com',
             subject: "RKMGEC - RESET PASSWORD",
             html: `
         <h3 > Hello <h2>${User.name}</h2> </h3>
@@ -30,7 +33,7 @@ const sendResetPasswordEmail = function ({ User, hash }) {
         }
 
 
-        transporter.sendMail(message, function (err, info) {
+         transporter.sendMail(message, function (err, info) {
             if (err) {
                 rej(err);
                 toast.error(err.name)

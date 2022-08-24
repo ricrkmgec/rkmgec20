@@ -31,10 +31,10 @@ document.body.addEventListener('click',closes)
  
 
   useEffect(() => {
-    let backgroundTransparacyVar = clientWindowHeight / 600;
+    let backgroundTransparacyVar = clientWindowHeight / 80;
 
     if (backgroundTransparacyVar < 2) {
-      let paddingVar = 40 - backgroundTransparacyVar * 90;
+      let paddingVar = 30 - backgroundTransparacyVar * 90;
       let boxShadowVar = backgroundTransparacyVar * 5;
       setBackgroundTransparacy(backgroundTransparacyVar);
       setPadding(paddingVar);
@@ -102,10 +102,10 @@ document.body.addEventListener('click',closes)
         >
           <ul className={styles.ul}>
             <Link href="/"><a><li className={styles.li}>Home</li></a></Link>
-            <Link href="/"><a><li className={styles.li}>about</li></a></Link>
-            <Link href="/"><a><li className={styles.li}> events</li></a></Link>
+            <Link href={`${DOMAIN}/aboutus`}><a><li className={styles.li}>about</li></a></Link>
+            <Link href={`${DOMAIN}/events`}><a><li className={styles.li}> events</li></a></Link>
             <Link href={`${DOMAIN}/feedback`}><a><li className={styles.li}>Feedback</li></a></Link>
-            <Link href="/"><a><li className={styles.li}>Contacts</li></a></Link>
+            <Link href={`${DOMAIN}/contactus`}><a><li className={styles.li}>Contacts</li></a></Link>
             {!loggedIn && (
               <Link href={`${DOMAIN}/user/login`}><a><li className={styles.li}>
                 login </li></a>

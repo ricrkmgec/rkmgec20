@@ -90,7 +90,7 @@ if (selected.length<=6) {
     }
   }
   };
-  if (selected.length>=5) {
+  if (selected.length>=6) {
     toast.error("You can't add More than 5 five tags")
   }
   if (!loggedIn) {

@@ -54,8 +54,8 @@ function Index({ dataa, data, loggedIn }) {
 
                   <div className={styles.container} key={index}>
                     {/* <a href=''> */}
-                    <div className={styles.card}>
-                      <Image className={styles.img} height={100} width={180} src={data.imageUrl[0]} alt="img" />
+                    <div className={styles.card} style={{alignItems:'center'}}>
+                      <Image className={styles.img} height={100} width={180} src={data.imageUrl[0]} objectFit={'contain'} alt="img" />
 
                       <div className={styles.card__details}>
 
@@ -72,7 +72,7 @@ function Index({ dataa, data, loggedIn }) {
                         <span style={{ fontSize: '15px', position: 'relative', }}>{moment(data.createdAt).fromNow()}</span>
                         <p className={styles.para}>{data.details.slice(0, 20) + "..."}</p>
 
-                        <button className={styles.button}><Link href={`${process.env.DOMAIN}/necessity/` + data._id}><a>Read more</a></Link></button>
+                        <Link href={`${process.env.DOMAIN}/necessity/` + data._id}><a><button className={styles.button}>Read more</button></a></Link>
                       </div>
 
 

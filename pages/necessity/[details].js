@@ -7,6 +7,7 @@ import _ from 'lodash';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { motion, AnimatePresence } from "framer-motion"
 function Details({dataa,data,loggedIn}) {
   const router=useRouter()
   if (!loggedIn) {
@@ -24,7 +25,13 @@ function Details({dataa,data,loggedIn}) {
       </Head>
             <main className="containerr">
                 <div className="left-column">
-                    <InnerImageZoom  className="img" src={dataa[0].imageUrl[0]} alt="" />
+                <AnimatePresence>
+                  {console.log(dataa[0])}
+                    <motion.img  className="img" src={dataa[0].imageUrl[1]} key={dataa[0].imageUrl} 
+                     initial={{ opacity: 0}}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }} alt="" />
+                    </AnimatePresence>
                 </div>
 
 
@@ -91,12 +98,12 @@ function Details({dataa,data,loggedIn}) {
   }
   // max-height:1rem;
 
-  .left-column .img {
-    // width: 100%;
+  .img {
+    width: 100%;
     // position: absolute;
     // left: 0;
     // top: 0;
-    // opacity: 0;
+    opacity: 0;
     transition: all 0.3s ease;
   }
 
